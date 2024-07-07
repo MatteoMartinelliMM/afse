@@ -9,8 +9,8 @@ class User {
     }
 
     isValidUser() {
-        return this.name && this.surname && this.email && this.pwd && this.heroesId;
+        return this.name && this.surname && this.email && this.pwd && this.favouriteHero;
     }
 }
 
-module.exports = {User};
+export {User};

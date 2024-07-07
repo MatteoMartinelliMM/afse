@@ -1,0 +1,20 @@
+{
+  "name": "afse_frontend",
+  "version": "1.0.0",
+  "description": "Frontend of afse (Collectables cards)",
+  "main": "src/js/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "afse",
+    "collectables",
+    "cards",
+    "marvel"
+  ],
+  "author": "Matteo Martinelli",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.2.3"
+  }
+}
