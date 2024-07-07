@@ -1078,3 +1078,4 @@
 /node_modules/whatwg-url/README.md
 /node_modules/whatwg-url/webidl2js-wrapper.js
 /node_modules/.package-lock.json
+/frontend/node_modules/
