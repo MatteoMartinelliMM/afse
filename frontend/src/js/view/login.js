@@ -1,15 +1,14 @@
 import LoginController from "../controller/loginController.js";
 import navInstance from "../utils/navigator.js";
+import {debounce} from "../utils/viewUtils.js";
 
 let loginController = new LoginController()
 
 export function render() {
-    let debounceTimeout;
     document.getElementById('navBar').classList.toggle('d-none', true)
     const loginBtn = document.getElementById('loginBtn')
     loginBtn.addEventListener('click', () => {
         loginBtn.querySelector('#buttonLoader').classList.toggle('d-none')
-        loginBtn.innerHTML = ''
         loginController.onLoginPressed()
             .then(() => navInstance.goTo('/home'))
             .catch(() => {
@@ -17,24 +16,25 @@ export function render() {
             })
     })
 
+    const registerLink = document.getElementById('register')
+    registerLink.addEventListener('click', (event) => {
+        event.preventDefault()
+        navInstance.goTo('/register');
+    })
+
     const email = document.getElementById('email')
-    document.getElementById('email').addEventListener('input', (event) => {
+    email.addEventListener('input', (event) => {
         console.log(email.value)
-        clearTimeout(debounceTimeout)
-        debounceTimeout = setTimeout(function () {
-            loginController.onEmailTyping(email.value)
-            loginBtn.disabled = loginController.disableLoginBtn()
-        }, 300)
+        debounce(() => {
+            console.log('onDebounce')
+            return loginBtn.disabled = loginController.onEmailTyping(email.value);
+        })
     })
 
     const pwd = document.getElementById('pwd')
-    document.getElementById('pwd').addEventListener('input', (event) => {
+    pwd.addEventListener('input', (event) => {
         console.log(pwd.value)
-        clearTimeout(debounceTimeout)
-        debounceTimeout = setTimeout(function () {
-            loginController.onPwdTyping(pwd.value)
-            loginBtn.disabled = loginController.disableLoginBtn()
-        }, 300)
+        debounce(() => loginBtn.disabled = loginController.onPwdTyping(pwd.value))
     })
 
 

@@ -1,5 +1,5 @@
 import pageLoader from "./htmlPageLoader.js";
-import controllerProvider from "./controllerProvider.js";
+import controllerProvider from "./viewProvider.js";
 
 
 class Navigator {
@@ -16,7 +16,7 @@ class Navigator {
         this.routes[path] = () => {
             pageLoader.loadPage(path)
                 .then(() =>
-                    controllerProvider.getController(path)
+                    controllerProvider.getView(path)
                         .then((controller) => {
                             controller.render();
                             return callback();

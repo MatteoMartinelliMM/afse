@@ -1,42 +1,41 @@
-import {User} from "../model/user.js";
+import RegisterController from '../controller/registerController.js'
+import navInstance from "../utils/navigator.js";
+import {debounce} from "../utils/viewUtils.js";
 
-let heroesId, isHero
+let registerController = new RegisterController()
 
-function onRegisterUser() {
-    const name = document.getElementById("name").value;
-    const surname = document.getElementById("surname").value;
-    const email = document.getElementById("email").value;
-    const pwd = document.getElementById("pwd").value;
-    const confirmPwd = document.getElementById("confirmPwd").value;
-    let u = new User(name, surname, email, pwd, isHero, heroesId)
-    if (pwd === confirmPwd && u.isValidUser()) {
-        return registerUser(u)
-            .then(() => nav.goTo('/home'))
-            .catch(() => console.log('error'))
-    }
-    let error = document.getElementById('erorr');
-    error.classList.remove('d-none')
-    error.innerHTML = 'Errore su qualche campo'
-}
-
-document.addEventListener("DOMContentLoaded", function () {
+export function render() {
+    console.log('render register')
     const heroesAutocomplete = document.getElementById("autocomplete");
     const suggestionBox = document.getElementById("autocomplete-list");
-    let debounceTimeout;
+
+    const registerBtn = document.getElementById('registerBtn')
+    registerBtn.addEventListener('click', () => {
+        registerBtn.querySelector('#buttonLoader').classList.toggle('d-none')
+
+        registerController.onRegisterUser()
+            .then(() => navInstance.goTo('/home'))
+            .catch(() => {
+                //todo gestire errore registrazione
+            });
+    })
+
+    const baseInfo = document.getElementById("baseInfo")
+    baseInfo.addEventListener('input', (event) =>
+        debounce(() => registerBtn.disabled = registerController.onInputTyping(event.target.id, event.target.value)))
 
     const suggestionTemplate = document.getElementById("suggestion-template");
 
-    heroesAutocomplete.addEventListener("input", async function () {
+    heroesAutocomplete.addEventListener("input", async () => {
         const query = heroesAutocomplete.value;
         if (query.length < 3) {
             suggestionBox.innerHTML = '';
+            registerBtn.disabled = registerController.onFavouriteHeroPicked()
             return;
         }
-        clearTimeout(debounceTimeout)
-        debounceTimeout = setTimeout(async function () {
+        debounce(() => {
             console.log(query)
-            fetch(`http://localhost:3000/marvel/characters/${query}`)
-                .then((res) => res.json())
+            registerController.onSearchingFavHero(query)
                 .then((data) => {
                     console.log(data)
                     suggestionBox.innerHTML = '';
@@ -49,36 +48,33 @@ document.addEventListener("DOMContentLoaded", function () {
                         suggestionBox.appendChild(clone)
 
                         suggestion.addEventListener("click", function () {
-                            heroesId = result.id
+                            registerBtn.disabled = registerController.onFavouriteHeroPicked(result.id)
                             heroesAutocomplete.value = result.name
                             suggestionBox.innerHTML = ''
                         });
                         suggestionBox.appendChild(suggestion);
                     });
                 })
-                .catch((e) => {
-                    console.error("Error fetching data: ", e);
-                    suggestionBox.innerHTML = '';
-
-                });
-        }, 300)
+                .catch(() => suggestionBox.innerHTML = '')
+        })
     });
 
     const toggleSwitch = document.getElementById('toggleSwitch');
     const status = document.getElementById('status');
 
     toggleSwitch.addEventListener('change', () => {
+        registerController.onHeroesVillainsToggle(toggleSwitch.checked)
         status.textContent = toggleSwitch.checked ? 'HERO' : 'VILLAIN'
-        isHero = toggleSwitch.checked
     });
 
+
     // Close the suggestion box when clicking outside
-    document.addEventListener("click", function (e) {
+    document.addEventListener("click", (e) => {
         if (e.target !== heroesAutocomplete) {
             suggestionBox.innerHTML = '';
         }
     });
-});
+}
 
 
 

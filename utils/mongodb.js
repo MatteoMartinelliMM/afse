@@ -17,6 +17,7 @@ async function connectClient() {
         console.log('Db connected successfully.');
         return client;
     } catch (e) {
+        console.log('entro qua')
         console.error(e);
     }
 }

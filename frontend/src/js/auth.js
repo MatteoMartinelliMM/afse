@@ -10,7 +10,7 @@ export function registerUser(user) {
         body: JSON.stringify(user)
     }
     return new Promise((resolve, reject) => {
-        fetch('http:localhost:3000/auth/register', options)
+        fetch('http://localhost:3000/auth/register', options)
             .then(response => {
                 if (response.status === 200) {
                     resolve()
