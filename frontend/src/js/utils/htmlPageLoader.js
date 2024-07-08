@@ -3,7 +3,7 @@ class HtmlPageLoader {
         if (HtmlPageLoader.instance) {
             return HtmlPageLoader.instance
         }
-        this.BASE_PATH = '/afse/frontend/public'
+        this.BASE_PATH = '/dist'
         HtmlPageLoader.instance = this
     }
 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="css/navbar.css">-->
+
+</head>
+<body>
+
+<nav id="navBar" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top d-none">
+    <a class="navbar-brand" href="#">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKWvTBRoPPPWRqEhiP3PK_fvawaL2_3MI1Cg&s"
+             width="75" alt="Brand">
+    </a>
+    <button class="navbar-toggler d-md-block d-lg-none" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li id="home" class="nav-item active">
+                <a class="nav-link" data-link="/home">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li id="album" class="nav-item">
+                <a class="nav-link" data-link="/album">Album</a>
+            </li>
+            <li id="shop" class="nav-item">
+                <a class="nav-link" data-link="/shop">Shop</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Marketplace
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" data-link="/tradeOffer">Crea offerta</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" data-link="/trades">Scambi disponibili</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div id="content" class="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="spinner-border text-danger" role="status"></div>
+</div>
+<!--<script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
+
+<!--<script src="index.js" type="module"></script>-->
+
+<!--<script src="js/utils/ext.js" type="module"></script>-->
+
+</body>
+</html>

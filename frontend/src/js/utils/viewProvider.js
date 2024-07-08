@@ -1,6 +1,6 @@
 class ViewProvider {
     constructor() {
-        this.BASE_PATH = '/afse/frontend/src/js/view'
+        this.BASE_PATH = '/js/view'
     }
 
     getView(path) {
@@ -12,7 +12,8 @@ class ViewProvider {
                     console.log(controller)
                     resolve(controller);
                 })
-                .catch(() => {
+                .catch((e) => {
+                    console.log(e)
                     console.log('fail to load view')
                     reject();
                 })
@@ -20,8 +21,8 @@ class ViewProvider {
     }
 }
 
-const controllerProvider = new ViewProvider()
+const viewProvider = new ViewProvider()
 
-Object.freeze(controllerProvider)
+Object.freeze(viewProvider)
 
-export default controllerProvider
+export default viewProvider
