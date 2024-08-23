@@ -1,3 +1,9 @@
-export function render() {
-    console.log('render')
+class AlbumView {
+    constructor() {
+    }
+
+    render() {
+        console.log('render album')
+    }
 }
+export default AlbumView

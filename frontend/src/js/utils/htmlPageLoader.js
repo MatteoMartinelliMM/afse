@@ -3,11 +3,12 @@ class HtmlPageLoader {
         if (HtmlPageLoader.instance) {
             return HtmlPageLoader.instance
         }
-        this.BASE_PATH = '/dist'
+        this.BASE_PATH = ''
         HtmlPageLoader.instance = this
     }
 
     loadPage(url) {
+        console.log('calling: ', `${this.BASE_PATH}${url}.html`)
         return new Promise((resolve, reject) => {
             fetch(`${this.BASE_PATH}${url}.html`)
                 .then((response) => {

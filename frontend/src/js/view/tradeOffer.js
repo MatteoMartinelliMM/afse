@@ -1,3 +1,11 @@
-export function render(){
-    console.log('render trade offer!')
+class TradeOfferView{
+    constructor() {
+    }
+
+    render(){
+        console.log('render trade offer!')
+    }
 }
+
+
+export default TradeOfferView

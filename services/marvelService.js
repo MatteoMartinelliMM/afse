@@ -30,7 +30,7 @@ async function getCharactersStartsWithName(name) {
 
 async function getCharacters() {
     const query = buildAuthQueryParams()
-    console.log(`marvel call: ${process.env.MARVE_BASE_URL}v1/public/characters?${query}`)
+    console.log(`marvel call: ${process.env.MARVE_BASE_URL}v1/public/characters?${query.toString()}`)
     const params = queryString.encode(query)
     return new Promise((resolve, reject) => {
         fetch(`${process.env.MARVE_BASE_URL}v1/public/characters${params}`)
@@ -55,6 +55,7 @@ function buildAuthQueryParams() {
     const hash = crypto.createHash('md5')
         .update(ts + process.env.MARVEL_PRIVATE + process.env.MARVEL_PUBLIC, 'utf8').digest('hex')
     console.log(`hash ${hash}`)
+    console.log(`apikey ${process.env.MARVEL_PUBLIC}`)
     return {ts: ts, apikey: process.env.MARVEL_PUBLIC, hash: hash}
 }
 

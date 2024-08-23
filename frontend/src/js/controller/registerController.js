@@ -80,6 +80,10 @@ class RegisterController {
         })
 
     }
+
+    prova() {
+        fetch('http://localhost:3000/auth/register')
+    }
 }
 
 export default RegisterController

@@ -8,6 +8,13 @@ module.exports = {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
         clean: true,
+        chunkFilename: 'src/js/view/[name].[contenthash].js',
+        publicPath: '/',
+    },
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, 'src'),
+        },
     },
     module: {
         rules: [
@@ -30,6 +37,7 @@ module.exports = {
                 },
             },
         ],
+
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -38,10 +46,15 @@ module.exports = {
         new CopyWebpackPlugin({
             patterns: [
                 { from: 'public', to: '' }, // Copy files from public to dist/public
-                { from: './src/js', to: 'js' }, // Copy files from public to dist/public
+                //{ from: './src/js', to: 'js' }, // Copy files from public to dist/public
             ],
         }),
     ],
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+        },
+    },
     devServer: {
         static: {
             directory: path.join(__dirname, 'dist'),
