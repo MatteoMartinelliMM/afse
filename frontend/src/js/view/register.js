@@ -10,7 +10,6 @@ class RegisterView {
 
     render() {
         console.log('render register')
-        this.registerController.prova()
         const heroesAutocomplete = document.getElementById("autocomplete");
         const suggestionBox = document.getElementById("autocomplete-list");
 
@@ -19,8 +18,12 @@ class RegisterView {
             registerBtn.querySelector('#buttonLoader').classList.toggle('d-none')
 
             this.registerController.onRegisterUser()
-                .then(() => navInstance.goTo('/home'))
+                .then(() => {
+                    console.log('e finalmente anche qua')
+                    navInstance.goTo('/home');
+                })
                 .catch(() => {
+                    console.log('zan zan zaaaan')
                     //todo gestire errore registrazione
                 });
         })
@@ -52,7 +55,7 @@ class RegisterView {
 
                             suggestionBox.appendChild(clone)
 
-                            suggestion.addEventListener("click", function () {
+                            suggestion.addEventListener("click", () => {
                                 registerBtn.disabled = this.registerController.onFavouriteHeroPicked(result.id)
                                 heroesAutocomplete.value = result.name
                                 suggestionBox.innerHTML = ''

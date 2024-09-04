@@ -42,17 +42,28 @@ class Navigator {
         window.addEventListener('load', () => {
             console.log('reload');
             console.log(window.location.pathname);
-            this.goTo(window.location.pathname.replace(this.BASE_PATH, ''))
+            this.goTo(window.location.pathname.replace(this.BASE_PATH, ''), window.location.search)
             //const path = window.location.pathname.replace(navInstance.BASE_PATH, '');
             //navInstance.navigate(path); // Navigate using your SPA's routing logic on initial load
         });
     }
 
-    goTo(path) {
+    goTo(path, query = '') {
         const fullPath = this.BASE_PATH + path;
         console.log(fullPath)
-        window.history.pushState({}, '', window.location.origin + fullPath)
+        window.history.pushState({}, '', window.location.origin + fullPath + query)
         this.navigate(path)
+    }
+
+    goToAndReplace(path, query= ''){
+        const fullPath = this.BASE_PATH + path;
+        console.log(fullPath)
+        window.history.replaceState(null, '', window.location.origin + fullPath + query)
+        this.navigate(path)
+    }
+
+    getQueryParams() {
+        return new URLSearchParams(window.location.search);
     }
 }
 
@@ -65,6 +76,8 @@ navInstance.addRoute('/album')
 navInstance.addRoute('/trades')
 navInstance.addRoute('/tradeOffer')
 navInstance.addRoute('/shop')
+navInstance.addRoute('/hero')
+navInstance.addRoute('/packRedeem')
 
 Object.freeze(navInstance)
 

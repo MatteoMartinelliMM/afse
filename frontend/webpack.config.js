@@ -10,6 +10,7 @@ module.exports = {
         clean: true,
         chunkFilename: 'src/js/view/[name].[contenthash].js',
         publicPath: '/',
+        assetModuleFilename: 'assets/[name][ext]',
     },
     resolve: {
         alias: {
@@ -36,6 +37,10 @@ module.exports = {
                     },
                 },
             },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
+            },
         ],
 
     },
@@ -46,6 +51,7 @@ module.exports = {
         new CopyWebpackPlugin({
             patterns: [
                 { from: 'public', to: '' }, // Copy files from public to dist/public
+                { from: 'src/assets', to: 'assets' }
                 //{ from: './src/js', to: 'js' }, // Copy files from public to dist/public
             ],
         }),
@@ -55,6 +61,7 @@ module.exports = {
             chunks: 'all',
         },
     },
+    devtool: 'source-map',
     devServer: {
         static: {
             directory: path.join(__dirname, 'dist'),
@@ -64,5 +71,8 @@ module.exports = {
         open: true,
         hot: true,
         historyApiFallback: true,
+        devMiddleware: {
+            writeToDisk: true,
+        },
     },
 };

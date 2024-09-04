@@ -4,21 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-   <!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">-->
+    <!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">-->
 </head>
 <body>
-<div class="form-group">
-    <label for="email">Email:</label>
-    <input id="email" type="email"><br>
-    <label for="pwd">Password:</label>
-    <input id="pwd" type="password"><br>
-    <div class="justify-content-center align-items-center">
-        <button id="loginBtn" class="btn btn-primary"  type="button" disabled>
-            <span id="buttonLoader" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-            Login
-        </button>
+<div id="loaderContainer" class="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input id="email" type="email"><br>
+        <label for="pwd">Password:</label>
+        <input id="pwd" type="password"><br>
+        <div class="justify-content-center align-items-center">
+            <button id="loginBtn" class="btn btn-primary" type="button" disabled>
+                <span id="buttonLoader" class="spinner-border spinner-border-sm d-none" role="status"
+                      aria-hidden="true"></span>
+                Login
+            </button>
+        </div>
+        <a id="register" href="/">Non sei registrato? Registrati ora</a>
     </div>
-    <a id="register" href="/">Non sei registrato? Registrati ora</a>
 </div>
 <!--<script src="../src/js/view/login.js" type="module"></script>-->
 </body>

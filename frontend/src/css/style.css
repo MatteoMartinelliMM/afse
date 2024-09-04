@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'marvel-font';
+    src: url('../fonts/marvel-font.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'stripes-caps';
+    src: url('../fonts/stripes-caps.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#content {
+
+}

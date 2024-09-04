@@ -20,7 +20,7 @@ function verifyToken(req, res, next) {
         }
         console.log('e stronza')
         console.log(authData)
-        req.id = authData.id;
+        req.userId = authData.id;
         next()
     })
 }

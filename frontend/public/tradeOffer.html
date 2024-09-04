@@ -5,6 +5,73 @@
     <title>Trade offer</title>
 </head>
 <body>
-<h1>TRADE OFFER</h1>
+<div id="mainContainer" class="container">
+    <div id="loaderContainer" class="container-fluid min-vh-100 d-flex justify-content-center align-items-center  d-none">
+        <div id="loader" class="spinner-border text-danger " role="status"></div>
+    </div>
+    <div id="newOfferContainer" class="container mx-auto d-none">
+        <div class="row pt-5">
+            <div class="col text-center">
+                <div class="marvel-label">
+                    <h1 class="pt-3">NEW OFFER</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="giveContainer" class="col">
+                <h2 class="text-center mt-1">GIVE:</h2>
+                <p class="text-center mt-1"> Add more cards from tradable by pressing trade on the card you want to trade</p>
+                <div id="giveCardContainer">
+
+                </div>
+            </div>
+            <div id="receiveContainer" class="col">
+                <h2 class="text-center mt-1">RECEIVE:</h2>
+                <input type="text" id="autocomplete" class="form-control" placeholder="Enter card name...">
+                <div id="autocomplete-list" class="autocomplete-suggestions"></div>
+                <div id="receiveCardContainer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="exchangeableContainer" class="container mx-auto">
+        <div class="row pt-5">
+            <div class="col text-center">
+                <div class="marvel-label">
+                    <h1 class="pt-3">TRADABLE CARDS</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="offersContainer" class="container mx-auto">
+        <div class="row pt-5">
+            <div class="col text-center">
+                <div class="marvel-label">
+                    <h1 class="pt-3">CURRENT OFFERS</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="tradeModal" tabindex="-1" aria-labelledby="tradeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="tradeModalLabel">TRADE OFFER</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Contenuto della modale -->
+                    Sei sicuro di voler accettare questa offerta di scambio?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Deny</button>
+                    <button type="button" class="btn btn-outline-danger">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>

@@ -5,7 +5,42 @@
     <title>Shop</title>
 </head>
 <body>
-<h1>SHOP</h1>
+<div class="container">
+    <div class="row user-token-info pt-3">
+        <div class="col-auto d-flex align-items-center">
+            <div class="small-coin d-flex justify-content-center align-items-center me-3">
+                <div class="small-coin-inner"></div>
+            </div>
+            <h4 id="coinAmount" class="mb-0">Your current token balance: <span id="tokenCount" class="token-count">1000</span></h4>
+        </div>
+    </div>
+    <div class="row pt-5">
+        <div class="col text-center">
+            <div class="marvel-label">
+                <h1 class="pt-3">AVAILABLE PACKS</h1>
+            </div>
+        </div>
+    </div>
 
+    <div id="availablePacks" class="justify-content-center row pt-5">
+        <div class="container-fluid d-flex justify-content-center align-items-center">
+            <div class="spinner-border text-danger " role="status"></div>
+        </div>
+    </div>
+    <div class="row pt-5">
+        <div class="col text-center">
+            <div class="marvel-label">
+                <h1 class="pt-3">BUY COINS</h1>
+            </div>
+        </div>
+    </div>
+    <div id="availableCoins" class="justify-content-center row pt-5">
+        <div class="container-fluid d-flex justify-content-center align-items-center">
+            <div class="spinner-border text-danger " role="status"></div>
+        </div>
+
+    </div>
+
+</div>
 </body>
 </html>

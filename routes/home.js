@@ -1,13 +1,13 @@
 const express = require('express')
 const router = express.Router()
 const {verifyToken} = require("../utils/jwtManager");
-const authRepository = require('../repository/authRepository')
+const userRepository = require('../repository/userRepository')
 
 
 router.use(verifyToken)
 
 router.get('/', async (req, res) => {
-    authRepository.findUserById(req.id).then((user) => res.status(200).json(user))
+    userRepository.findUserById(req.userId).then((user) => res.status(200).json(user))
 })
 
 module.exports = router

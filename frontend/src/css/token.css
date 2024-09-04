@@ -1,0 +1,119 @@
+#coin-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-family: stripes-caps, serif;
+}
+.coin {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #ffd700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.coin-inner {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #ffa500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+    font-weight: bold;
+    color: #ffd700;
+}
+.coin::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    width: 20%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: skew(-20deg);
+}
+
+.small-coin {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ffd700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-right: 15px;
+}
+.small-coin-inner {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ffa500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffd700;
+    font-family: stripes-caps, serif;
+}
+.small-coin::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    width: 20%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: skew(-20deg);
+}
+
+.mini-coin {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ffd700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-right: 8px;
+}
+.mini-coin-inner {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ffa500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffd700;
+    font-family: stripes-caps, serif;
+}
+.mini-coin::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    width: 20%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: skew(-20deg);
+}
+
+.token-count {
+    color: #ec1d24;
+    font-weight: bold;
+}

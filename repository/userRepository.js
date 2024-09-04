@@ -33,6 +33,15 @@ async function deleteUserById(id) {
     return res.deletedCount > 0;
 }
 
+async function updateUser(user, fieldsToUpdate) {
+    const res = await (await userCollection()).updateOne({_id: new ObjectId(user._id)}, {$set: fieldsToUpdate})
+    return res.acknowledged
+}
+async function updateUserById(userId, fieldsToUpdate) {
+    const res = await (await userCollection()).updateOne({_id: new ObjectId(userId)}, {fieldsToUpdate})
+    return res.acknowledged
+}
+
 function hashPwd(user) {
     return crypto.createHash('sha256').update(user.pwd).digest('hex');
 }
@@ -43,4 +52,6 @@ module.exports = {
     findAllUsers: findAllUsers,
     findUserById: findUserById,
     findUserByCredentials: findUserByCredentials,
+    updateUser: updateUser,
+    updateUserById: updateUserById,
 }

@@ -6,10 +6,12 @@ class User {
         this.pwd = pwd;
         this.isHero = isHero;
         this.favouriteHero = favouriteHero;
+        this.coinAmount = 0;
+        this.figurine = []
     }
 
     isValidUser() {
-        return this.name && this.surname && this.email && this.pwd && this.heroesId;
+        return this.name && this.surname && this.email && this.pwd && this.favouriteHero;
     }
 }
 

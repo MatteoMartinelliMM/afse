@@ -18,6 +18,7 @@ class HtmlPageLoader {
                 .then((html) => {
                     const parser = new DOMParser()
                     const doc = parser.parseFromString(html, 'text/html')
+                    console.log('qua casca l asino')
                     document.getElementById('content').innerHTML = doc.body.innerHTML
                     this.applyHeadContent(doc.head)
                     resolve();

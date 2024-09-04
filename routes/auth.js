@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const authRepository = require('../repository/authRepository')
+const authRepository = require('../repository/userRepository')
 const jwtManager = require("../utils/jwtManager");
 const marvelService = require('../services/marvelService.js')
 
@@ -25,7 +25,8 @@ router.post('/register', async (req, res) => {
             sameSite: true,// Set to true if using HTTPS
             path: '/'         // Cookie available on all routes
         });
-        res.status(200).send()
+        console.log('arrivo qua eh!')
+        res.status(200).json({'result': 'ok'}).send()
         return;
     }
     res.status(400).json({message: 'bad request'})

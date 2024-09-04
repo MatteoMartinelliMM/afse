@@ -1,5 +1,6 @@
 import {registerUser} from "../auth.js";
 import User from "../../js/model/user.js"
+import HttpInteractor from "@/js/utils/httpInteractor";
 
 class RegisterController {
     constructor() {
@@ -13,14 +14,20 @@ class RegisterController {
 
     onRegisterUser() {
         const u = new User(this.name, this.surname, this.email, this.pwd, this.isHero, this.favouriteHero)
+        let options = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: 'include',
+            body: JSON.stringify(u)
+        }
         return new Promise((resolve, reject) => {
-            registerUser(u)
-                .then(() => resolve())
-                .catch((e) => {
-                    console.log(e)
-                    reject(e);
-                });
-        });
+            new HttpInteractor().post('http://localhost:3000/auth/register', options)
+                .then((res) => {
+                    console.log('anche qua mannaggia al cazzo')
+                    resolve();
+                }).catch((e) => reject(e))
+        })
     }
 
     onHeroesVillainsToggle(value) {
@@ -34,6 +41,8 @@ class RegisterController {
     }
 
     onInputTyping(id, value) {
+        console.log('id: ', id)
+        console.log('value: ', value)
         switch (id) {
             case 'name':
                 this.name = value
@@ -69,7 +78,7 @@ class RegisterController {
     }
 
     onSearchingFavHero(name) {
-        return new Promise((resolve,reject) => {
+        return new Promise((resolve, reject) => {
             fetch(`http://localhost:3000/marvel/characters/${name}`)
                 .then(res => res.json())
                 .then(data => resolve(data))
@@ -79,10 +88,6 @@ class RegisterController {
                 })
         })
 
-    }
-
-    prova() {
-        fetch('http://localhost:3000/auth/register')
     }
 }
 
