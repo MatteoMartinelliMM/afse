@@ -15,10 +15,10 @@ app.use(express.json());
 require('./routes')(app);
 
 async function onStart() {
-    await figurineRepository.checkFigurineOnServerStart()
+    //await figurineRepository.checkFigurineOnServerStart()
     setInterval(async () => {
         await figurineRepository.checkFigurineOnServerStart()
-    }, process.env.NEW_FIGURINE_CHECKER_TIMER)
+    }, parseInt(process.env.NEW_FIGURINE_CHECKER_TIMER))
 }
 
 onStart().then(() => {

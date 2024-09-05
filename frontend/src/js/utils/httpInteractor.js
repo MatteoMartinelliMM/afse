@@ -16,6 +16,12 @@ class HttpInteractor {
         return this.#doTheCall(url, options)
     }
 
+    async putAuthenticated(url, options = {}) {
+        options.method = 'PUT'
+        options.credentials = 'include'
+        return this.#doTheCall(url, options)
+    }
+
     async get(url, options = {}) {
         options.method = 'GET'
         return this.#doTheCall(url, options);

@@ -87,7 +87,6 @@ class RegisterController {
                     reject()
                 })
         })
-
     }
 }
 

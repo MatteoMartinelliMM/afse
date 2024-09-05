@@ -20,19 +20,34 @@
         <div class="row">
             <div id="giveContainer" class="col">
                 <h2 class="text-center mt-1">GIVE:</h2>
-                <p class="text-center mt-1"> Add more cards from tradable by pressing trade on the card you want to trade</p>
+                <p class="text-center mt-2"> Add more cards from tradable by pressing trade on the card you want to trade</p>
                 <div id="giveCardContainer">
 
                 </div>
             </div>
             <div id="receiveContainer" class="col">
                 <h2 class="text-center mt-1">RECEIVE:</h2>
-                <input type="text" id="autocomplete" class="form-control" placeholder="Enter card name...">
-                <div id="autocomplete-list" class="autocomplete-suggestions"></div>
+
+                <div class="autocomplete-container">
+                    <input type="text" id="autocomplete" class="form-control" placeholder="Enter card name...">
+                    <div id="autocomplete-list" class="autocomplete-suggestions"></div>
+                    <div id="autoCompleteLoader" class="justify-content-center align-items-center mt-2 d-none">
+                        <div class="spinner-border text-danger" role="status"></div>
+                    </div>
+                </div>
+                <template id="suggestion-template">
+                    <div class="autocomplete-suggestion">
+                        <img class="avatar">
+                        <span class="name"></span>
+                    </div>
+                </template>
                 <div id="receiveCardContainer">
 
                 </div>
             </div>
+        </div>
+        <div class="container-fluid mt-5">
+            <button id="confirmBtn" class="btn btn-outline-danger w-100 p-3">CONFIRM CHOICE</button>
         </div>
     </div>
     <div id="exchangeableContainer" class="container mx-auto">
@@ -40,15 +55,6 @@
             <div class="col text-center">
                 <div class="marvel-label">
                     <h1 class="pt-3">TRADABLE CARDS</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="offersContainer" class="container mx-auto">
-        <div class="row pt-5">
-            <div class="col text-center">
-                <div class="marvel-label">
-                    <h1 class="pt-3">CURRENT OFFERS</h1>
                 </div>
             </div>
         </div>

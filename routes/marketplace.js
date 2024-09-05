@@ -30,4 +30,13 @@ router.get('/offers', async (req, res) => {
     })
 })
 
+router.put('/createOffer', (req, res) => {
+    userRepository.findUserById(req.userId)
+        .then(u => {
+            console.log('ciao')
+            console.log(JSON.stringify(req.body))
+            res.status(200).json({message: 'ok'})
+        }).catch(e => res.status(500).json({message: 'cannot perform request'}))
+})
+
 module.exports = router

@@ -4,6 +4,7 @@ const {verifyToken} = require("../utils/jwtManager");
 const marvelService = require('../services/marvelService')
 const authRepository = require("../repository/userRepository");
 const figurineRepository = require("../repository/figurineRepository")
+const userRepository = require("../repository/userRepository")
 const Figurine = require("../model/figurine");
 
 
@@ -11,7 +12,7 @@ router.get('/characters/:name', (req, res) => {
     const name = req.params.name
     marvelService.getCharactersStartsWithName(name)
         .then((characters) => res.status(200).json(characters))
-        .catch((e) => res.status(400).json({}))
+        .catch(e => res.status(400).json({}))
 })
 
 router.use(verifyToken)
@@ -84,6 +85,21 @@ router.get('/heroDetail', async (req, res) => {
     }).catch(e => res.status(400).json({message: 'Marvel does not respond'}))
 })
 
-router.use(verifyToken)
+router.get('/charactersTrade/:name', (req, res) => {
+    const name = req.params.name
+    Promise.allSettled([marvelService.getCharactersStartsWithName(name), userRepository.findUserById(req.userId)])
+        .then(result => {
+            const characters = result[0].value
+            const user = result[1].value
+            if (characters && user) {
+                const userCards = [...user.figurine.map(f => f.figurineId),
+                    ...user.exchangeable.map(f => f.figurineId)]
+                res.status(200).json(characters.filter(c => !userCards.includes(c.id)))
+                return;
+            }
+            res.status(200).json({message: 'Error fetching data'})
+        })
+
+})
 
 module.exports = router
