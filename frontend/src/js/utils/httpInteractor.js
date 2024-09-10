@@ -16,6 +16,12 @@ class HttpInteractor {
         return this.#doTheCall(url, options)
     }
 
+    async deleteAuthenticated(url, options = {}) {
+        options.method = 'DELETE'
+        options.credentials = 'include'
+        return this.#doTheCall(url, options)
+    }
+
     async putAuthenticated(url, options = {}) {
         options.method = 'PUT'
         options.credentials = 'include'

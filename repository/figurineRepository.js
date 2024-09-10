@@ -88,13 +88,12 @@ async function insertUserFigurines(userId, figurines) {
 
 async function insertUserExchangeableFigurines(userId, exchangeable, figurines) {
     figurines.forEach(fig => {
-        const existingF = exchangeable.find(f => f.figurineId === fig.figurineId);
-        !existingF ? exchangeable.push({
+        exchangeable.push({
             _id: new ObjectId(),
             figurineId: fig.figurineId,
             name: fig.name,
             quantity: 1
-        }) : existingF.quantity++;
+        });
     })
     let res = await (await userCollection()).updateOne(
         {_id: new ObjectId(userId)},

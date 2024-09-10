@@ -1,5 +1,5 @@
 import HttpInteractor from "@/js/utils/httpInteractor";
-import TradeOfferModel from "../../../../model/tradeOffer";
+import TradeOfferModel from "@/js/model/tradeOfferModel";
 
 class TradeOfferController {
     constructor() {
@@ -8,8 +8,8 @@ class TradeOfferController {
 
     enterOnPage() {
         return new Promise((resolve, reject) => {
-            new HttpInteractor().getAuthenticated('http://localhost:3000/marketplace/offers').then((data) => {
-                this.exchangeable = data.exchangeable
+            new HttpInteractor().getAuthenticated('http://localhost:3000/marketplace/tradableCards').then((data) => {
+                this.exchangeable = data
                 resolve(data)
                 console.log(JSON.stringify(data))
             }).catch((e) => {
@@ -55,7 +55,7 @@ class TradeOfferController {
         return new Promise((resolve, reject) => {
             new HttpInteractor().putAuthenticated(`http://localhost:3000/marketplace/createOffer`, {
                 headers: {
-                    'Content-Type': 'application/json' // Assicurati di specificare il Content-Type
+                    'Content-Type': 'application/json' 
                 },
                 body: JSON.stringify(tradeOfferModel)
             })

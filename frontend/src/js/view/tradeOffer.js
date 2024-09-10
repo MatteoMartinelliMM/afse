@@ -10,9 +10,23 @@ class TradeOfferView {
     render() {
         console.log('render trade offer!')
         this.tradeOfferController.enterOnPage().then(data => {
-            const exchangeableContainer = document.getElementById('exchangeableContainer')
-            const offersContainer = document.getElementById('offersContainer')
-            this.#fillArea(exchangeableContainer, data.exchangeable);
+            document.getElementById('loaderContainer').classList.toggle('d-none', true)
+            document.getElementById('exchangeableContainer').classList.toggle('d-none', false)
+            const exchangeableCardsContainer = document.getElementById('exchangeableCardsContainer')
+            exchangeableCardsContainer.classList.toggle('d-none', false)
+            document.getElementById('confirmBtn')
+                .addEventListener('click', () => {
+                    document.getElementById('loaderContainer').classList.toggle('d-none', false)
+                    return this.tradeOfferController.confirmNewOffer()
+                        .then(newData => {
+                            document.getElementById('loaderContainer').classList.toggle('d-none', true)
+                            exchangeableCardsContainer.innerHTML = ''
+                            this.#fillArea(exchangeableCardsContainer, newData);
+                            this.#buildOfferView()
+                        })
+                        .catch(e => console.log(e));
+                })
+            this.#fillArea(exchangeableCardsContainer, data);
         }).catch(e => console.log(e))
     }
 
@@ -20,24 +34,25 @@ class TradeOfferView {
         let row = document.createElement('div')
         let index = 0
         row.className = 'row justify-content-center'
-        cards.forEach(h => {
-            if (index % 4 === 0 && index !== 0) {
-                console.log('entro qua')
-                container.appendChild(row)
-                row = document.createElement('div')
-                row.className = 'row justify-content-center'
-            }
-            const imageUrl = `${h.thumbnail.path}.${h.thumbnail.extension}`;
-            const cell = document.createElement('div')
-            cell.className = 'col-lg-3 col-md-3 col-sm-6 col-xs-9 mt-4 d-flex justify-content-center text-center'
-            cell.innerHTML += `
+        if (cards.length !== 0) {
+            cards.forEach(h => {
+                if (index % 4 === 0 && index !== 0) {
+                    console.log('entro qua')
+                    container.appendChild(row)
+                    row = document.createElement('div')
+                    row.className = 'row justify-content-center'
+                }
+                const imageUrl = `${h.thumbnail.path}.${h.thumbnail.extension}`;
+                const cell = document.createElement('div')
+                cell.className = 'col-lg-3 col-md-3 col-sm-6 col-xs-9 mt-4 d-flex justify-content-center text-center'
+                cell.innerHTML += `
                         <div class="card" style="width: 18rem;">
                              <div id="card${h.id}" class="hero-card">
                                 <img src="${imageUrl}" alt="${h.name}" class="img-fluid">
                                 <div class="hero-label overflow-auto">
                                     <span>${h.name}</span>
                                 </div>
-                                <div class="overflow-chip position-absolute top-0 end-0 translate-middle mt-4 ms-3 p-2 text-white rounded-circle d-flex justify-content-center align-items-center">
+                                <div class="overflow-chip position-absolute top-0 end-0 mt-2 me-2 text-white rounded-circle d-flex justify-content-center align-items-center">
                                     ${h.quantity}
                                 </div>
                             </div>
@@ -50,20 +65,29 @@ class TradeOfferView {
                             </div>
                         </div>
                         `
-            row.appendChild(cell)
-            index++
-        })
-        container.appendChild(row)
-        cards.forEach(h => {
-            document.getElementById(`trade${h.id}`).addEventListener('click', () => {
-                console.log('tradeClick')
-                this.tradeOfferController.onTradeCardSelected(h.id)
-                const card = document.getElementById(`card${h.id}`)
-                card.classList.add('disabled')
-                document.getElementById(`trade${h.id}`).disabled = true
-                this.#buildOfferView();
+                row.appendChild(cell)
+                index++
             })
-        })
+            container.appendChild(row)
+            cards.forEach(h => {
+                document.getElementById(`trade${h.id}`).addEventListener('click', () => {
+                    console.log('tradeClick')
+                    this.tradeOfferController.onTradeCardSelected(h.id)
+                    const card = document.getElementById(`card${h.id}`)
+                    card.classList.add('disabled')
+                    document.getElementById(`trade${h.id}`).disabled = true
+                    this.#buildOfferView();
+                })
+            })
+            return;
+        }
+        const cell = document.createElement('div')
+        cell.className = 'col justify-content-center text-center mt-2'
+        cell.innerHTML += `<h2 class="text-center">YOU DON'T HAVE ANY DUPLICATES</h2>`
+        cell.innerHTML += `<h3 class="text-center">buy more packs to have cards to trade</h3>`
+        row.appendChild(cell)
+        container.appendChild(cell)
+
     }
 
     #buildOfferView() {
@@ -72,11 +96,6 @@ class TradeOfferView {
             document.getElementById('newOfferContainer').classList.toggle('d-none', true)
             return;
         }
-        document.getElementById('confirmBtn')
-            .addEventListener('click', () =>
-                this.tradeOfferController.confirmNewOffer()
-                    .then(_ => this.#buildOfferView())
-                    .catch(e => console.log(e)))
         const heroAutoComplete = document.getElementById('autocomplete')
         const suggestionBox = document.getElementById('autocomplete-list');
         const suggestionTemplate = document.getElementById('suggestion-template');
@@ -138,10 +157,8 @@ class TradeOfferView {
                             <div class="hero-label overflow-auto">
                                 <span>${card.name}</span>
                             </div>
-                            <div id="chip${card.id}" class="overflow-chip clickable position-absolute top-0 end-0 translate-middle mt-4h ms-3 p-2 text-white rounded-circle d-flex justify-content-center align-items-center">
-                               <svg class="mt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 30" fill="none" x="0px" y="0px">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.69292 18.3071C5.30239 17.9166 5.30239 17.2834 5.69292 16.8929L16.8929 5.69292C17.2834 5.30239 17.9166 5.30239 18.3071 5.69292C18.6977 6.08344 18.6977 6.71661 18.3071 7.10713L7.10713 18.3071C6.71661 18.6977 6.08344 18.6977 5.69292 18.3071Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M5.69292 5.69292C6.08344 5.30239 6.71661 5.30239 7.10713 5.69292L18.3071 16.8929C18.6977 17.2834 18.6977 17.9166 18.3071 18.3071C17.9166 18.6977 17.2834 18.6977 16.8929 18.3071L5.69292 7.10713C5.30239 6.71661 5.30239 6.08344 5.69292 5.69292Z" fill="white"/>
-                               </svg>
+                            <div id="chip${card.id}" class="overflow-chip clickable position-absolute top-0 end-0 mt-2 me-2 text-white rounded-circle d-flex justify-content-center align-items-center">
+                               <button type="button" class="btn-close btn-close-white" aria-label="Close"></button>
                             </div>
                          </div>
                     `
@@ -177,10 +194,8 @@ class TradeOfferView {
                             <div class="hero-label overflow-auto">
                                 <span>${h.name}</span>
                             </div>
-                            <div id="chip${h.id}" class="overflow-chip clickable position-absolute top-0 end-0 translate-middle mt-4h ms-3 p-2 text-white rounded-circle d-flex justify-content-center align-items-center">
-                               <svg class="mt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 30" fill="none" x="0px" y="0px">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.69292 18.3071C5.30239 17.9166 5.30239 17.2834 5.69292 16.8929L16.8929 5.69292C17.2834 5.30239 17.9166 5.30239 18.3071 5.69292C18.6977 6.08344 18.6977 6.71661 18.3071 7.10713L7.10713 18.3071C6.71661 18.6977 6.08344 18.6977 5.69292 18.3071Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M5.69292 5.69292C6.08344 5.30239 6.71661 5.30239 7.10713 5.69292L18.3071 16.8929C18.6977 17.2834 18.6977 17.9166 18.3071 18.3071C17.9166 18.6977 17.2834 18.6977 16.8929 18.3071L5.69292 7.10713C5.30239 6.71661 5.30239 6.08344 5.69292 5.69292Z" fill="white"/>
-                               </svg>
+                            <div id="chip${h.id}" class="overflow-chip clickable position-absolute top-0 end-0 mt-2 me-2 text-white rounded-circle d-flex justify-content-center align-items-center">
+                               <button type="button" class="btn-close btn-close-white" aria-label="Close"></button>
                             </div>
                          </div>
                     `

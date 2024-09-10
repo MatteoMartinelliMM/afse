@@ -34,6 +34,12 @@
     transition: transform 0.2s, background-color 0.2s
 }
 
+.text-stroke {
+    color: white; /* Colore del testo interno */
+    -webkit-text-stroke: 0.02rem black; /* Spessore e colore dello stroke */
+    font-weight: bold; /* Optional: rende il testo più marcato */
+}
+
 .clickable {
     cursor: pointer;
 }
@@ -108,4 +114,9 @@
     border-bottom: 2px solid #ec1d24;
     border-right: 2px solid #ec1d24;
     padding: 0.6rem;
+}
+
+.profile-img{
+    width: 75px;
+    height: 75px;
 }

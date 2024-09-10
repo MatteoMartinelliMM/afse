@@ -13,7 +13,7 @@ class RegisterController {
     }
 
     onRegisterUser() {
-        const u = new User(this.name, this.surname, this.email, this.pwd, this.isHero, this.favouriteHero)
+        const u = new User(this.name, this.surname, this.username, this.email, this.pwd, this.isHero, this.profilePicture, this.favouriteHero)
         let options = {
             headers: {
                 "Content-Type": "application/json",
@@ -35,9 +35,13 @@ class RegisterController {
     }
 
     onFavouriteHeroPicked(favHero) {
-        this.favouriteHero = favHero
-        console.log('favourite hero', this.favouriteHero)
-        return this.disableRegisterBtn()
+        if (this.herosList) {
+            const h = this.herosList.find(h => h.id === favHero)
+            this.profilePicture = `${h.thumbnail.path}.${h.thumbnail.extension}`
+            this.favouriteHero = favHero
+            console.log('favourite hero', this.favouriteHero)
+            return this.disableRegisterBtn()
+        }
     }
 
     onInputTyping(id, value) {
@@ -59,21 +63,25 @@ class RegisterController {
             case 'confirmPwd':
                 this.confirmPwd = value
                 break;
+            case 'username':
+                this.username = value;
+                break;
         }
         return this.disableRegisterBtn()
     }
 
     disableRegisterBtn() {
         console.log('disable register')
-        console.log('name', this.name.isNullOrEmpty())
-        console.log('surname', this.surname.isNullOrEmpty())
-        console.log('email', this.email.isNullOrEmpty())
-        console.log('pwd', this.pwd.isNullOrEmpty())
-        console.log('confirmPwd', this.confirmPwd.isNullOrEmpty())
-        console.log('favHero', this.favouriteHero)
+        console.log('name', this.name?.isNullOrEmpty())
+        console.log('surname', this.surname?.isNullOrEmpty())
+        console.log('email', this.email?.isNullOrEmpty())
+        console.log('username', this.username?.isNullOrEmpty())
+        console.log('pwd', this.pwd?.isNullOrEmpty())
+        console.log('confirmPwd', this.confirmPwd?.isNullOrEmpty())
+        console.log('favHero', this?.favouriteHero)
         //todo add after || !this.email.isValidEmail()
-        return this.name.isNullOrEmpty() || this.surname.isNullOrEmpty()
-            || (this.pwd.isNullOrEmpty() || this.confirmPwd.isNullOrEmpty()
+        return this.name?.isNullOrEmpty() || this.surname?.isNullOrEmpty()
+            || (this.pwd?.isNullOrEmpty() || this.confirmPwd?.isNullOrEmpty()
                 || this.pwd !== this.confirmPwd) || !this.favouriteHero
     }
 
@@ -81,7 +89,10 @@ class RegisterController {
         return new Promise((resolve, reject) => {
             fetch(`http://localhost:3000/marvel/characters/${name}`)
                 .then(res => res.json())
-                .then(data => resolve(data))
+                .then(data => {
+                    this.herosList = data
+                    resolve(data);
+                })
                 .catch((e) => {
                     console.log(e)
                     reject()

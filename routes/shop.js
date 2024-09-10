@@ -75,7 +75,7 @@ router.post('/packReedem', (req, res) => {
                 return;
             }
             //const figurineIds = !pack.figurines ? await figurineRepository.pickRandomFigurines(pack.cardAmount) : pack.figurines
-            const figurineIds = [1011334,1010672,1010337,1011199,1009696]
+            const figurineIds = [1011334, 1010672, 1010337, 1010727, 1009696]
             const figurines = []
             for (const id of figurineIds)
                 figurines.push(await marvelService.getCharacter(id))

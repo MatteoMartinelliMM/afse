@@ -3,6 +3,7 @@ import IndexController from "./js/controller/indexController.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js'
 import './css/navbar.css';
+import 'masonry-layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/autocomplete.css';
 import './css/albumNav.css';
@@ -32,9 +33,20 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch((e) => navInstance.goTo('/login'))
     }
+
+    const dropDownLinks = document.querySelectorAll('.dropdown-item')
+
+    dropDownLinks.forEach((d) => d.addEventListener('click', (event) => {
+        console.log('entro in dropdown links');
+        event.preventDefault()
+        console.log('goTo: ', d.getAttribute('data-link'))
+        navInstance.goTo(d.getAttribute('data-link'));
+    }))
+
     const navLinks = document.querySelectorAll('.nav-link')
 
     navLinks.forEach(navLink => {
+        console.log('entro in main nav links');
         if (navLink.closest('.dropdown')) return;
         navLink.addEventListener('click', (event) => {
             event.preventDefault();
@@ -43,11 +55,5 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     })
 
-    const dropDownLinks = document.querySelectorAll('.dropdown-item')
 
-    dropDownLinks.forEach((d) => d.addEventListener('click', (event) => {
-        event.preventDefault()
-        console.log('goTo: ', d.getAttribute('data-link'))
-        navInstance.goTo(d.getAttribute('data-link'));
-    }))
 });

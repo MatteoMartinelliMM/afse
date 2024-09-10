@@ -6,7 +6,7 @@
 </head>
 <body>
 <div id="mainContainer" class="container">
-    <div id="loaderContainer" class="container-fluid min-vh-100 d-flex justify-content-center align-items-center  d-none">
+    <div id="loaderContainer" class="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
         <div id="loader" class="spinner-border text-danger " role="status"></div>
     </div>
     <div id="newOfferContainer" class="container mx-auto d-none">
@@ -50,7 +50,7 @@
             <button id="confirmBtn" class="btn btn-outline-danger w-100 p-3">CONFIRM CHOICE</button>
         </div>
     </div>
-    <div id="exchangeableContainer" class="container mx-auto">
+    <div id="exchangeableContainer" class="container mx-auto d-none">
         <div class="row pt-5">
             <div class="col text-center">
                 <div class="marvel-label">
@@ -58,6 +58,7 @@
                 </div>
             </div>
         </div>
+        <div id="exchangeableCardsContainer"></div>
     </div>
     <div class="modal fade" id="tradeModal" tabindex="-1" aria-labelledby="tradeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">

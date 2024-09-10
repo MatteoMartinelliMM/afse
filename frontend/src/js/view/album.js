@@ -28,13 +28,11 @@ class AlbumView {
                 const imageUrl = `${h.thumbnail.path}.${h.thumbnail.extension}`;
                 const cell = document.createElement('div')
                 cell.className = 'col-lg-3 col-md-3 col-sm-6 col-xs-9'
-                const level = h.owned ? `${h.figurineLevel}★` : ''
                 cell.innerHTML = `
                         <div class="hero-card ${!h.owned ? 'disabled' : ''}">
                             <img src="${imageUrl}" alt="${h.name}" class="img-fluid">
-                            <div class="hero-label overflow-auto">
-                                <span>${h.name}</span>
-                                <span id="level">${level}</span>
+                            <div class="hero-label ">
+                                <span class="text-wrap text-break">${h.name}</span>
                             </div>
                         </div>
                 `;

@@ -52,6 +52,7 @@ class PackRedeem {
                         <div class="card" style="width: 18rem;">
                              <div class="hero-card">
                                 <img src="${imageUrl}" alt="${h.name}" class="img-fluid">
+                                
                                 <div class="hero-label overflow-auto">
                                     <span>${h.name}</span>
                                 </div>

@@ -17,7 +17,7 @@ class PackRedeemController {
             }
             new HttpInteractor().postAuthenticated('http://localhost:3000/shop/packReedem', {
                 headers: {
-                    'Content-Type': 'application/json' // Assicurati di specificare il Content-Type
+                    'Content-Type': 'application/json' 
                 },
                 body: JSON.stringify({packId: params.get('packId')}
                 )

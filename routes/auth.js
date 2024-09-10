@@ -3,6 +3,7 @@ const router = express.Router()
 const authRepository = require('../repository/userRepository')
 const jwtManager = require("../utils/jwtManager");
 const marvelService = require('../services/marvelService.js')
+const {User} = require("../model/user");
 
 router.get('/register', async (req, res) => {
     console.log('ci arrivo')
@@ -12,24 +13,28 @@ router.get('/register', async (req, res) => {
     res.status(200).send()
 })
 
-router.post('/register', async (req, res) => {
+router.post('/register', (req, res) => {
     console.log('dio')
-    let u = req.body;
-    if (u.name && u.surname && u.email && (u.pwd && u.pwd.length > 0)) {//todo aggiungere controllo password
-        await authRepository.insertUser(u)
-        const token = await jwtManager.getToken(u._id)
-        res.cookie('jwt', token, {
-            //expires: new Date(new Date().getTime() + 15 * 60000),   // 15 minutes
-            httpOnly: true,  // Allow client-side access to the cookie
-            secure: false,
-            sameSite: true,// Set to true if using HTTPS
-            path: '/'         // Cookie available on all routes
-        });
-        console.log('arrivo qua eh!')
-        res.status(200).json({'result': 'ok'}).send()
-        return;
+    let u = new User(req.body);
+    if (u.isValidUser()) {//todo aggiungere controllo password
+        authRepository.insertUser(u).then(async insert => {
+            if (!insert) {
+                res.status(400).json({message: 'bad request'})
+                return;
+            }
+            const token = await jwtManager.getToken(u._id)
+            res.cookie('jwt', token, {
+                //expires: new Date(new Date().getTime() + 15 * 60000),   // 15 minutes
+                httpOnly: true,  // Allow client-side access to the cookie
+                secure: false,
+                sameSite: true,// Set to true if using HTTPS
+                path: '/'         // Cookie available on all routes
+            });
+            console.log('arrivo qua eh!')
+            res.status(200).json({'result': 'ok'}).send()
+        })
     }
-    res.status(400).json({message: 'bad request'})
+
 })
 
 router.post('/login', async (req, res) => {
