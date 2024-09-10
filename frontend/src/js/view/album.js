@@ -17,19 +17,18 @@ class AlbumView {
             this.#updatePagination(json.total, json.page)
             let index = 0
             let row = document.createElement('div')
-            row.className = 'row'
+            row.className = 'row mt-2'
             json.results.forEach((h) => {
                 if (index % 4 === 0 && index !== 0) {
                     albumContainer.appendChild(row)
                     row = document.createElement('div')
                     row.className = 'row'
                 }
-                console.log('diomaledetto')
                 const imageUrl = `${h.thumbnail.path}.${h.thumbnail.extension}`;
                 const cell = document.createElement('div')
-                cell.className = 'col-lg-3 col-md-3 col-sm-6 col-xs-9'
+                cell.className = 'col-lg-3 col-md-3 col-sm-6 col-xs-9 mb-3 mb-md-0'
                 cell.innerHTML = `
-                        <div class="hero-card ${!h.owned ? 'disabled' : ''}">
+                        <div class="hero-card ${!h.owned ? 'disabled' : 'clickable'}">
                             <img src="${imageUrl}" alt="${h.name}" class="img-fluid">
                             <div class="hero-label ">
                                 <span class="text-wrap text-break">${h.name}</span>

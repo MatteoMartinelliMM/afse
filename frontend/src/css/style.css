@@ -12,6 +12,23 @@
     font-style: normal;
 }
 
-#content {
-
+/* Modifica il colore dei numeri di pagina */
+.pagination .page-item .page-link {
+    color: #ec1d24; /* Colore del testo */
 }
+
+/* Colore del testo e sfondo per il numero di pagina attivo */
+.pagination .page-item.active .page-link {
+    color: #fff; /* Colore del testo */
+    background-color: #ec1d24; /* Colore di sfondo */
+    border-color: #f82027;
+}
+
+/* Colore del testo per i bottoni di navigazione */
+.pagination .page-item .page-link:hover {
+    color: #fff; /* Colore del testo quando hover */
+    background-color: #901016; /* Colore di sfondo quando hover */
+}
+
+/* Colore del testo per i bottoni di navigazione disabilitati */
+

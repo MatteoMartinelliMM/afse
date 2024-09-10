@@ -66,20 +66,6 @@ async function getCharacters(page) {
     const params = queryString.encode(query)
     console.log(`${process.env.MARVE_BASE_URL}v1/public/characters?${params}`)
     return new Promise((resolve, reject) => {
-        fs.readFile(page === 1 ? 'f.json' : 'g.json', 'utf8', (err, data) => {
-            let obj = JSON.parse(data)
-            resolve({
-                page: page,
-                total: Math.ceil(obj.data.total / 40),
-                results: obj.data.results.map(result => ({
-                    id: result.id,
-                    name: result.name,
-                    thumbnail: result.thumbnail,
-                }))
-            })
-        })
-    })
-    /*return new Promise((resolve, reject) => {
         fetch(`${process.env.MARVE_BASE_URL}v1/public/characters?${params}`, {signal: AbortSignal.timeout(120000)})
             .then((response) => {
                 console.log('response status code: ', response.status)
@@ -88,15 +74,17 @@ async function getCharacters(page) {
                 }
                 response.json()
                     .then((r) => {
+                        r.data.total = Math.ceil(r.data.total / 40)
+                        r.data.page = page
                         console.log(r)
-                        resolve(r.data.results)
+                        resolve(r.data)
                     })
                     .catch((e) => reject(e))
             }).catch((e) => {
             console.log('finisco nel catch')
             reject(e);
         })
-    })*/
+    })
 
 }
 

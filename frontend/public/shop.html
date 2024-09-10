@@ -6,12 +6,13 @@
 </head>
 <body>
 <div class="container">
-    <div class="row user-token-info pt-3">
+    <div id="headerContainer" class="row user-token-info pt-3 d-none">
         <div class="col-auto d-flex align-items-center">
             <div class="small-coin d-flex justify-content-center align-items-center me-3">
                 <div class="small-coin-inner"></div>
             </div>
-            <h4 id="coinAmount" class="mb-0">Your current token balance: <span id="tokenCount" class="token-count">1000</span></h4>
+            <h4 id="coinAmount" class="mb-0">Your current token balance:
+                <span id="tokenCount" class="token-count"></span></h4>
         </div>
     </div>
     <div class="row pt-5">
@@ -34,11 +35,10 @@
             </div>
         </div>
     </div>
-    <div id="availableCoins" class="justify-content-center row pt-5">
+    <div id="availableCoins" class="justify-content-center row mt-5 mb-3">
         <div class="container-fluid d-flex justify-content-center align-items-center">
             <div class="spinner-border text-danger " role="status"></div>
         </div>
-
     </div>
 
 </div>

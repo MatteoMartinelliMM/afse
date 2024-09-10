@@ -43,6 +43,8 @@ router.put('/createOffer', (req, res) => {
                 }
             )
             await marketRepository.createMarketOffer(new TradeOfferModel(req.userId, req.body.giveCards, req.body.recieveCards))
+            u.inTrade = inTrade
+            u.exchangeable = newExchangeable
             res.status(200).json(await getExchangeableFigurines(u))
         }).catch(e => {
         console.log(e)

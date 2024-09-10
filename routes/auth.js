@@ -1,23 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const authRepository = require('../repository/userRepository')
+const userRepository = require('../repository/userRepository')
 const jwtManager = require("../utils/jwtManager");
-const marvelService = require('../services/marvelService.js')
+require('../services/marvelService.js');
 const {User} = require("../model/user");
-
-router.get('/register', async (req, res) => {
-    console.log('ci arrivo')
-    let c = await marvelService.getCharacters();
-    console.log('Spalletti merda')
-    console.log(c)
-    res.status(200).send()
-})
 
 router.post('/register', (req, res) => {
     console.log('dio')
     let u = new User(req.body);
     if (u.isValidUser()) {//todo aggiungere controllo password
-        authRepository.insertUser(u).then(async insert => {
+        userRepository.insertUser(u).then(async insert => {
             if (!insert) {
                 res.status(400).json({message: 'bad request'})
                 return;
@@ -42,7 +34,7 @@ router.post('/login', async (req, res) => {
     console.log(process.env.TZ)
     console.log(new Date())
     if (login.email && login.pwd && login.pwd.length > 0) {
-        const user = await authRepository.findUserByCredentials(login)
+        const user = await userRepository.findUserByCredentials(login)
         if (user) {
             const token = await jwtManager.getToken(user._id)
             res.cookie('jwt', token, {
@@ -61,17 +53,17 @@ router.post('/login', async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
-    let users = await authRepository.findAllUsers()
+    let users = await userRepository.findAllUsers()
     res.status(200).json(users)
 });
 
 router.get('/:id', async (req, res) => {
-    let u = await authRepository.findUserById(req.params.id)
+    let u = await userRepository.findUserById(req.params.id)
     res.status(u ? 200 : 404).json(u ? u : {message: 'User not found'})
 });
 
 router.delete('/:id', async (req, res) => {
-    let result = await authRepository.deleteUserById(req.params.id)
+    let result = await userRepository.deleteUserById(req.params.id)
     res.status(result ? 200 : 400).json({message: result ? 'User deleted successfully' : 'User not found'})
 })
 

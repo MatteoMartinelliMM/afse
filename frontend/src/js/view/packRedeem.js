@@ -7,13 +7,17 @@ class PackRedeem {
     }
 
     render() {
+        document.getElementById('navBar').classList.toggle('d-none', true)
         this.packRedeemController.getPack().then(data => {
             document.getElementById('loaderContainer').classList.toggle('d-none', true)
             document.getElementById('packMainContainer').classList.toggle('d-none', false)
             document.getElementById('confirmBtn').disabled = !this.packRedeemController.canConfirmChoice()
             document.getElementById('confirmBtn').addEventListener('click', () =>
                 this.packRedeemController.onConfirmCardsChoice()
-                    .then(r => navInstance.goToAndReplace('/shop'))
+                    .then(r => {
+                        document.getElementById('navBar').classList.toggle('d-none', false)
+                        navInstance.goToAndReplace('/shop');
+                    })
                     .catch(e => console.log(e)))
             this.#fillAllAreas(data)
         }).catch(e => console.log(e))

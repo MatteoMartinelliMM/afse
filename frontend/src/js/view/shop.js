@@ -9,6 +9,7 @@ class ShopView {
     render() {
         console.log('render shop!')
         this.shopController.getUserInfo().then(() => {
+            document.getElementById('headerContainer').classList.toggle('d-none', false)
             document.getElementById('tokenCount').innerHTML = `${this.shopController.user.coinAmount}`
             this.getPacks(this.shopController.user);
             this.shopController.getAvailableCoins().then((data) => {
@@ -19,14 +20,13 @@ class ShopView {
                          <div class="col-auto text-center mt-2">
                             <div class="card" style="width: 18rem;">
                                 <div id="coin-container" class="d-flex justify-content-center pt-3">
-                                    <div class="coin">
+                                    <div class="coin" id="btn${e._id}">
                                         <div class="coin-inner">${e.amount}</div>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">${e.amount} Coin</h5>
                                     <p class="card-text">${e.description}</p>
-                                    <a id="btn${e._id}" class="btn btn-outline-danger">Get coin</a>
                                 </div>
                             </div>
                         </div>`;
@@ -47,7 +47,7 @@ class ShopView {
 
             }).catch((e) => {
                 const coinsContainer = document.getElementById('availableCoins')
-                if(coinsContainer) {
+                if (coinsContainer) {
                     coinsContainer.innerHTML = '';
                     coinsContainer.innerHTML = `<h1 class="text-danger text-center">Errore nel recupero dei gettoni</h1>`
                 }
@@ -64,11 +64,11 @@ class ShopView {
                 packContainer.innerHTML += `
                         <div class="col-auto text-center mt-2">
                             <div class="card" style="width: 18rem;">
-                                <img src="/assets/common_pack.png" class="card-img-top" alt="...">
+                                <img id="btn${e._id}" src="/assets/common_pack.png" class="card-img-top clickable-img ${user.coinAmount < e.cost ? 'disabled' : ''}" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">${e.name}</h5>
                                     <p class="card-text">${e.description}</p>
-                                    <a href="#" id="btn${e._id}" class="btn btn-outline-danger ${user.coinAmount < e.cost ? 'disabled' : ''}">Buy for ${e.cost} coin</a>
+                                    <p class="card-text">Buy for ${e.cost} coin</p>
                                 </div>
                             </div>
                         </div>`;

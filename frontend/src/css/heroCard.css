@@ -14,10 +14,26 @@
     font-family: marvel-font, serif;
 }
 
+.hero-card.clickable:hover {
+    transform: scale(1.05);
+}
+
+.clickable-img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+.clickable-img.disabled {
+    filter: grayscale(100%);
+    pointer-events: none;
+    transform: none;
+}
+
 .hero-card.disabled {
     background-color: grey;
     filter: grayscale(100%);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+    pointer-events: none;
+    transform: none;
 }
 
 .hero-card img {
@@ -87,6 +103,7 @@
     font-family: marvel-font, serif;
     text-align: center;
 }
+
 #container {
     display: flex;
     flex-direction: column;
@@ -109,14 +126,22 @@
     }
 }
 
-.prova{
+.prova {
     border-left: 2px solid #ec1d24;
     border-bottom: 2px solid #ec1d24;
     border-right: 2px solid #ec1d24;
     padding: 0.6rem;
 }
 
-.profile-img{
+.profile-img {
     width: 75px;
     height: 75px;
 }
+
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #ec1d24; /* Colore di sfondo per l'icona */
+    border-radius: 50%; /* Forma rotonda dell'icona */
+}
+

@@ -1,7 +1,7 @@
 const authRoutes = require('./auth')
-const homeRoutes = require('./home')
+const homeRoutes = require('./homeRoutes')
 const marvelRoutes = require('./marvel')
-const shopRoutes = require('./shop')
+const shopRoutes = require('./shopRoutes')
 const userRoutes = require('./userRoutes')
 const marketplaceRoutes = require('./marketplace')
 

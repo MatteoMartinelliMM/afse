@@ -7,7 +7,39 @@
 </head>
 <body>
 
-<div><h1 id="saluti"></h1></div>
-<script src="../src/js/view/home.js" type="module"></script>
+<div id="mainContainer" class="container">
+    <div id="mainLoaderContainer"
+         class="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
+        <div class="spinner-border text-danger " role="status"></div>
+    </div>
+    <div id="userInfoContainer" class="row mt-3 ms-1">
+
+    </div>
+    <div id="collectionContainer" class="container mx-auto d-none">
+        <div class="row pt-5">
+            <div class="col text-center">
+                <div class="marvel-label">
+                    <h1 class="pt-3">YOUR COLLECTION</h1>
+                </div>
+            </div>
+        </div>
+        <div id="collectionInnerContainer" class="row mt-2">
+            <div id="collectionLoaderContainer"
+                 class="col-12 container-fluid d-flex justify-content-center align-items-center mt-3">
+                <div class="spinner-border text-danger " role="status"></div>
+            </div>
+            <div id="collectionCarousel" class=" carousel slide d-none" data-ride="carousel">
+                <div class="carousel-inner">
+                </div>
+                <a class="carousel-control-prev" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </a>
+                <a class="carousel-control-next" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -117,7 +117,6 @@ async function addFigurineDetails(data, userId) {
     const figurines = await getUserFigurines(userId)
     const figurinesId = figurines.map(f => f.figurineId)
     data.results = data.results.map(figurine => {
-        const foundFigurine = figurines.find(f => f.figurineId === figurine.id);
         return {
             ...figurine,
             owned: figurinesId.includes(figurine.id),
@@ -170,14 +169,47 @@ function getRandomFigurine(array, numberOfElements) {
     return shuffledArray.slice(0, numberOfElements);
 }
 
-function generateObjectIdFromFigurineId(figurineId) {
-    // Usa SHA-1 per generare un hash
-    const hash = crypto.createHash('sha1').update(figurineId).digest('hex');
+async function getUserFigurinePaginated(userId, page) {
+    const pipeline = [
+        {
+            $match: {_id: new ObjectId(userId)}  // Filtra l'utente per id
+        },
+        {
+            $facet: {
+                total: [
+                    {
+                        $project: {
+                            total: {$size: {$ifNull: ["$figurine", []]}}  // Conta il numero totale di figurine
+                        }
+                    }
+                ],
+                figurine: [
+                    {
+                        $project: {
+                            _id: 0,  // Escludi altri dati dell'utente, come _id
+                            figurine: {
+                                $slice: [
+                                    {$sortArray: {input: {$ifNull: ["$figurine", []]}, sortBy: {name: 1}}},
+                                    (page - 1) * 6,  // Calcola l'offset
+                                    6  // Limite di elementi per pagina
+                                ]
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            $project: {
+                total: {$arrayElemAt: ["$total.total", 0]},  // Restituisci il numero totale di figurine
+                figurine: {$arrayElemAt: ["$figurine.figurine", 0]}  // Restituisci le figurine ordinate e paginati
+            }
+        }
+    ];
 
-    // Prendi i primi 24 caratteri dell'hash per creare un ObjectId
-    const objectIdHex = hash.substring(0, 24);
-
-    return new ObjectId(objectIdHex);
+    // Usa toArray() per ottenere il risultato come array
+    const figurinesArray = await (await userCollection()).aggregate(pipeline).toArray();
+    return figurinesArray[0] || {total: 0, figurine: []}
 }
 
 module.exports = {
@@ -187,5 +219,6 @@ module.exports = {
     addFigurineDetails: addFigurineDetails,
     getFigurine: getFigurine,
     checkFigurineOnServerStart: checkFigurineOnServerStart,
+    getUserFigurinePaginated: getUserFigurinePaginated,
     pickRandomFigurines: pickRandomFigurines,
 }

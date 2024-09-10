@@ -11,6 +11,8 @@ class TradesView {
         console.log('render trades!')
 
         this.tradesControler.getTrades().then(data => {
+            document.getElementById('othersOffer').classList.toggle('d-none', false)
+            document.getElementById('yourOffer').classList.toggle('d-none', false)
             this.createOfferGrid(data.othersOffers, 'othersOfferContainer')
             this.createOfferGrid(data.userOffers, 'userOfferContainer', true)
             console.log(JSON.stringify(data))

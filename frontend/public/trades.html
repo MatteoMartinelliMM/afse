@@ -10,47 +10,27 @@
          class="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
         <div id="loader" class="spinner-border text-danger " role="status"></div>
     </div>
-
-        <div id="othersOffer" class="container mx-auto">
-            <div class="row pt-5">
-                <div class="col text-center">
-                    <div class="marvel-label">
-                        <h1 class="pt-3">OFFER</h1>
-                    </div>
+    <div id="othersOffer" class="container mx-auto d-none">
+        <div class="row pt-5">
+            <div class="col text-center">
+                <div class="marvel-label">
+                    <h1 class="pt-3">OFFER</h1>
                 </div>
             </div>
-            <div id="othersOfferContainer" class="row mt-2" data-masonry='{"percentPosition": true}'>
-            </div>
         </div>
-        <div id="yourOffer" class="container mx-auto">
-            <div class="row pt-5">
-                <div class="col text-center">
-                    <div class="marvel-label">
-                        <h1 class="pt-3">YOUR OFFER</h1>
-                    </div>
+        <div id="othersOfferContainer" class="row mt-2" data-masonry='{"percentPosition": true}'>
+        </div>
+    </div>
+    <div id="yourOffer" class="container mx-auto d-none">
+        <div class="row pt-5">
+            <div class="col text-center">
+                <div class="marvel-label">
+                    <h1 class="pt-3">YOUR OFFER</h1>
                 </div>
             </div>
-            <div id="userOfferContainer" class="row mt-2" data-masonry='{"percentPosition": true}'></div>
         </div>
-    <!-- <div class="modal fade" id="tradeModal" tabindex="-1" aria-labelledby="tradeModalLabel" aria-hidden="true">
-         <div class="modal-dialog modal-dialog-centered">
-             <div class="modal-content">
-                 <div class="modal-header">
-                     <h5 class="modal-title text-center" id="tradeModalLabel">TRADE OFFER</h5>
-                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                 </div>
-                 <div class="modal-body">
-                     Contenuto della modale
-                     Sei sicuro di voler accettare questa offerta di scambio?
-                 </div>
-                 <div class="modal-footer">
-                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Deny</button>
-                     <button type="button" class="btn btn-outline-danger">Confirm</button>
-                 </div>
-             </div>
-         </div>
-     </div>-->
-
+        <div id="userOfferContainer" class="row mt-2" data-masonry='{"percentPosition": true}'></div>
+    </div>
 </div>
 </body>
 </html>
