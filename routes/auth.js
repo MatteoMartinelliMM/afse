@@ -28,7 +28,11 @@ router.post('/register', (req, res) => {
                 path: '/'         // Cookie available on all routes
             });
             console.log('arrivo qua eh!')
-            res.status(200).json({'result': 'ok'}).send()
+            res.status(200).json({result: 'ok'}).send()
+        }).catch(e => {
+            console.log(e)
+            const keyPattern = e.keyPattern
+            res.status(400).json({message: `${Object.keys(keyPattern)[0].capitalize()} already exist.`})
         })
     }
 

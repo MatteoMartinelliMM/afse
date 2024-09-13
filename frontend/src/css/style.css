@@ -30,5 +30,33 @@
     background-color: #901016; /* Colore di sfondo quando hover */
 }
 
+#loginContainer {
+    z-index: 1
+}
+
+#imageContainer {
+    z-index: -1
+}
+
+@media (min-width: 1400px) {
+    #loginContainer {
+        background-image: url("../assets/login.jpg");
+        background-size: cover; /* L'immagine copre l'intera area */
+        background-position: center; /* Centra l'immagine */
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+}
+
+@media (min-width: 1400px) {
+    #registerContainer {
+        background-image: url("../assets/register.jpg");
+        background-size: cover; /* L'immagine copre l'intera area */
+        background-position: center; /* Centra l'immagine */
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+}
+
 /* Colore del testo per i bottoni di navigazione disabilitati */
 

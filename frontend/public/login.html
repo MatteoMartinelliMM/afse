@@ -7,21 +7,33 @@
     <!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">-->
 </head>
 <body>
-<div id="loaderContainer" class="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
-    <div class="form-group">
-        <label for="email">Email:</label>
-        <input id="email" type="email"><br>
-        <label for="pwd">Password:</label>
-        <input id="pwd" type="password"><br>
-        <p class="text-danger d-none" id="loginError">Invalid username or password.</p>
-        <div class="justify-content-center align-items-center">
-            <button id="loginBtn" class="btn btn-outline-danger" type="button" disabled>
+<div id="loginContainer" class="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
+    <div>
+        <div class="p-2 mb-3"><img class="img-fluid" src="/assets/brand.png" alt="logo"></div>
+        <form class="p-4 p-md-5 border rounded-3 bg-light">
+
+            <div class="form-floating mb-3">
+                <input id="email" class="form-control" type="email">
+                <label for="email">Email</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input id="pwd" class="form-control" type="password">
+                <label for="pwd">Password</label>
+            </div>
+
+            <p class="text-danger d-none" id="loginError">Invalid username or password.</p>
+
+            <div class="container-fluid">
+                <button id="loginBtn" class="btn btn-outline-danger w-100 p-3" type="button" disabled>
                 <span id="buttonLoader" class="spinner-border spinner-border-sm d-none" role="status"
                       aria-hidden="true"></span>
-                Login
-            </button>
-        </div>
-        <p>Don't have an account? <a id="register" href="/">Sing up now.</a></p>
+                    Sing in
+                </button>
+            </div>
+            <hr class="my-4">
+            <p>Don't have an account? <a id="register" href="/register">Sing up now.</a></p>
+
+        </form>
     </div>
 </div>
 <!--<script src="../src/js/view/login.js" type="module"></script>-->

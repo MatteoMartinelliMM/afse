@@ -1,6 +1,7 @@
 import TradesController from "../controller/tradesController.js";
 import navInstance from "../utils/navigator.js";
 import Masonry from 'masonry-layout/masonry';
+import {attachListners} from "@/js/navbar";
 
 
 class TradesView {
@@ -10,6 +11,7 @@ class TradesView {
 
     render() {
         console.log('render trades!')
+        attachListners()
         this.tradesControler.getTrades().then(data => {
             document.getElementById('othersOffer').classList.toggle('d-none', false)
             document.getElementById('yourOffer').classList.toggle('d-none', false)

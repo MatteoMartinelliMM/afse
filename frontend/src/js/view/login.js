@@ -10,7 +10,7 @@ class LoginView {
 
     render() {
         console.log('call render')
-        document.getElementById('navBarDiv').classList.toggle('d-none', true)
+        document.getElementById('navBar').classList.toggle('d-none', true)
         const loginErr = document.getElementById('loginError')
         const loginBtn = document.getElementById('loginBtn')
         loginBtn.addEventListener('click', () => {

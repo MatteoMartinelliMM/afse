@@ -2,5 +2,5 @@ let debounceTimeout
 
 export function debounce(callback) {
     clearTimeout(debounceTimeout)
-    debounceTimeout = setTimeout(() => callback(), 300)
+    debounceTimeout = setTimeout(() => callback(), 200)
 }

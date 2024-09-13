@@ -4,56 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../src/css/autocomplete.css">
-    <link rel="stylesheet" href="../src/css/switch.css">
 </head>
 <body>
-<div id="loaderContainer" class="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
-<div>
-    <div id="baseInfo">
-        <label for="name">Nome:</label>
-        <input type="text" id="name"><br>
-        <label for="surname">Cognome:</label>
-        <input type="text" id="surname"><br>
-        <label for="email">Email:</label>
-        <input type="email" id="email"><br>
-        <label for="username">Username:</label>
-        <input type="username" id="username"><br>
-        <label for="pwd">Password:</label>
-        <input type="password" id="pwd"><br>
-        <label for="confirmPwd">Conferma password:</label>
-        <input type="password" id="confirmPwd"><br>
-    </div>
-    <div class="switch-container">
-        <span>Sei più un Hero o un Villain?</span>
-        <label id="heroSwitch" class="switch">
-            <input type="checkbox" id="toggleSwitch" checked="true">
-            <span class="slider"></span>
-        </label>
-        <span id="status">HERO</span>
+<div id="registerContainer" class="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
 
-    </div>
-    <div class="autocomplete-container mt-5">
-        <label for="autocomplete">Supereroe preferito:</label>
-        <input type="text" id="autocomplete" class="form-control" autocomplete="off" placeholder="Supereroe preferito">
-        <div id="autocomplete-list" class="autocomplete-suggestions"></div>
-        <template id="suggestion-template">
-            <div class="autocomplete-suggestion">
-                <img class="avatar">
-                <span class="name"></span>
+    <form class="p-4 p-md-5 border rounded-3 bg-light">
+        <div class="p-2 mb-3"><img class="img-fluid" src="/assets/brand.png" alt="logo"></div>
+        <div id="baseInfo">
+            <div class="row">
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input id="name" class="form-control" type="text">
+                        <label for="name">Name</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input id="surname" class="form-control" type="text">
+                        <label for="surname">Surname</label>
+                    </div>
+                </div>
             </div>
-        </template>
-    </div>
-    <p class="text-danger d-none" id="registerError">Failed to register.</p>
-    <button id="registerBtn" class="btn btn-primary"  type="button" disabled>
-        <span id="buttonLoader" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-        Register
-    </button>
-    <script src="../src/js/auth.js" type="module"></script>
-    <script src="../src/js/view/register.js" type="module"></script>
-</div>
-<div class="d-none" id="error"></div>
+            <div class="form-floating mb-3">
+                <input id="email" class="form-control" type="email">
+                <label for="email">Email</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input id="username" class="form-control" type="text">
+                <label for="username">Username</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input id="pwd" class="form-control" type="password">
+                <label for="pwd">Password</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input id="confirmPwd" class="form-control" type="password">
+                <label for="confirmPwd">Confirm password</label>
+            </div>
+        </div>
+        <div class="autocomplete-container form-floating">
+            <input type="text" id="autocomplete" class="form-control" autocomplete="off">
+            <label for="autocomplete">Favourite hero:</label>
+            <div id="autocomplete-list" class="autocomplete-suggestions"></div>
+            <div id="autoCompleteLoader" class="justify-content-center align-items-center mt-2 mb-3 d-none">
+                <div class="spinner-border text-danger" role="status"></div>
+            </div>
+            <template id="suggestion-template">
+                <div class="autocomplete-suggestion">
+                    <img class="avatar">
+                    <span class="name"></span>
+                </div>
+            </template>
+        </div>
+
+        <p class="text-danger pt-2 d-none" id="registerError"></p>
+        <div class="container-fluid mt-5">
+            <button id="registerBtn" class="btn btn-outline-danger w-100 p-3" type="button" disabled>
+                <span id="buttonLoader" class="spinner-border spinner-border-sm d-none" role="status"
+                      aria-hidden="true"></span>
+                Sing up
+            </button>
+        </div>
+        <hr class="my-4 mt-5">
+        <p>Already registered? <a id="register" href="/login">Sing in.</a></p>
+    </form>
 </div>
 
 </body>

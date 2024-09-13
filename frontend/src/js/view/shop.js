@@ -1,5 +1,6 @@
 import ShopController from "@/js/controller/shopController";
 import navInstance from "@/js/utils/navigator";
+import {attachListners} from "@/js/navbar";
 
 
 class ShopView {
@@ -9,6 +10,7 @@ class ShopView {
 
     render() {
         console.log('render shop!')
+        attachListners()
         this.shopController.getUserInfo().then(() => {
             document.getElementById('headerContainer').classList.toggle('d-none', false)
             document.getElementById('tokenCount').innerHTML = `${this.shopController.user.coinAmount}`

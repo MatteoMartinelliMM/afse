@@ -7,6 +7,10 @@ function onErrorResponse(e, res) {
     res.status(500).json({message: "Cannot perform request"})
 }
 
+String.prototype.capitalize = function () {
+    return this.replace(/\b\w/g, char => char.toUpperCase())
+}
+
 module.exports = {
     formatString: formatString,
     onErrorResponse: onErrorResponse

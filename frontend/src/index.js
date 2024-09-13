@@ -19,29 +19,35 @@ let indexController = new IndexController()
 document.addEventListener('DOMContentLoaded', () => {
     console.log('=====================================')
     console.log('call dom content loaded di index.html')
-    const navBarDiv = document.getElementById('navBarDiv');
-    navBarDiv.addEventListener('click', (event) => {
-        const dropdownItem = event.target.closest('.dropdown-item');
-        if (dropdownItem) {
-            event.preventDefault();
-            console.log('entro in dropdown links listner');
-            const link = dropdownItem.getAttribute('data-link');
-            console.log('goTo: ', link);
-            navInstance.goTo(link);
-        }
-    });
+    const dropDownLinks = document.querySelectorAll('.dropdown-item')
+    /*const dropDownMenu = document.getElementById('dropdownMenu')
+    const dropdown = new Dropdown(dropDownMenu)*/
+    dropDownLinks.forEach((d) => d.addEventListener('click', (event) => {
+        console.log('entro in dropdown links');
+        event.preventDefault()
+        console.log('goTo: ', d.getAttribute('data-link'))
+        navInstance.goTo(d.getAttribute('data-link'));
+    }))
 
-// Event delegation per nav-link (esclusi quelli all'interno dei dropdown)
-    navBarDiv.addEventListener('click', (event) => {
-        const navLink = event.target.closest('.nav-link');
-        if (navLink && !navLink.closest('.dropdown')) {
-            event.preventDefault();
-            console.log('entro in main nav links listner');
-            const link = navLink.getAttribute('data-link');
-            console.log('goTo: ', link);
-            navInstance.goTo(link);
+    const navLinks = document.querySelectorAll('.nav-link')
+    /*document.getElementById('marketplace').addEventListener('click', () => {
+        console.log('cliccato marketplace')
+        console.log(dropdown._isShown())
+       /* if(dropdown._isShown()){
+            dropdown.hide()
+            return
         }
-    });
+        dropdown.show()
+    })*/
+    navLinks.forEach(navLink => {
+        console.log('entro in main nav links');
+        if (navLink.closest('.dropdown')) return;
+        navLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            console.log('goTo: ', navLink.getAttribute('data-link'))
+            navInstance.goTo(navLink.getAttribute('data-link'));
+        })
+    })
     navInstance.listen(() => {
         console.log('chiamato il listner del navigator')
         //indexController.showNavbar() ? navBar.classList.remove('d-none') : navBar.classList.add('d-none')

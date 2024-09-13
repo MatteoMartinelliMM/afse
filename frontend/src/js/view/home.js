@@ -2,6 +2,7 @@ import HomeController from "../controller/homeController.js";
 import navInstance from "../utils/navigator.js";
 import {Carousel} from "bootstrap";
 import {main} from "@popperjs/core";
+import {attachListners} from "@/js/navbar";
 
 
 class HomeView {
@@ -11,7 +12,7 @@ class HomeView {
 
     render() {
         console.log('render() home')
-        document.getElementById('navBarDiv').classList.toggle('d-none', false)
+        document.getElementById('navBar').classList.toggle('d-none', false)
         this.homeController.getUserInfo().then(user => {
             document.getElementById('mainLoaderContainer').classList.toggle('d-none', true)
             const collectionContainer = document.getElementById('collectionContainer')

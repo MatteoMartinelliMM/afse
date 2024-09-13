@@ -1,5 +1,6 @@
 import TradeOfferController from "@/js/controller/tradeOfferController";
 import {debounce} from "@/js/utils/viewUtils";
+import {attachListners} from "@/js/navbar";
 
 
 class TradeOfferView {
@@ -9,6 +10,8 @@ class TradeOfferView {
 
     render() {
         console.log('render trade offer!')
+        attachListners()
+
         this.tradeOfferController.enterOnPage().then(data => {
             document.getElementById('loaderContainer').classList.toggle('d-none', true)
             document.getElementById('exchangeableContainer').classList.toggle('d-none', false)

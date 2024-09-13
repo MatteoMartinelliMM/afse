@@ -18,3 +18,15 @@
 .nav-item .nav-link {
     cursor: pointer;
 }
+
+.navbar-invisible {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s linear;
+}
+
+.navbar-visible {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s, opacity 0.3s linear;
+}

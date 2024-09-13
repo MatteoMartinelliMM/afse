@@ -4,7 +4,7 @@ class NotFoundView {
 
     render() {
         console.log('render 404 not found')
-        document.getElementById('navBarDiv').classList.toggle('d-none', true)
+        document.getElementById('navBar').classList.toggle('d-none', true)
     }
 }
 

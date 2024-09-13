@@ -10,6 +10,7 @@ class RegisterController {
         this.pwd = ''
         this.confirmPwd = ''
         this.favouriteHero = undefined
+        this.passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     }
 
     onRegisterUser() {
@@ -20,7 +21,7 @@ class RegisterController {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(u)
-            }).then(_ => resolve()).catch((e) => {
+            }).then(data => resolve(data)).catch((e) => {
                 console.log(e)
                 reject(e);
             })
@@ -42,8 +43,10 @@ class RegisterController {
     }
 
     onInputTyping(id, value) {
+        console.log('=======================')
         console.log('id: ', id)
         console.log('value: ', value)
+        console.log('=======================')
         switch (id) {
             case 'name':
                 this.name = value
@@ -95,6 +98,17 @@ class RegisterController {
                     reject()
                 })
         })
+    }
+
+    validateEmailUi() {
+        return this.email.isValidEmail() ? 'is-valid' : 'is-invalid'
+    }
+
+    validPasswordUi() {
+        if (this.pwd && this.confirmPwd) {
+            return this.pwd === this.confirmPwd && this.passwordRegex.test(this.pwd) ? 'is-valid' : 'is-invalid'
+        }
+        return ''
     }
 }
 
