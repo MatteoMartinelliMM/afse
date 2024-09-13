@@ -12,6 +12,10 @@ async function figurineCollection() {
     return (await db.getDbInstance()).collection('figurine');
 }
 
+async function packCollection() {
+    return (await db.getDbInstance()).collection('pack');
+}
+
 async function checkFigurineOnServerStart() {
     const fCollection = await figurineCollection()
     const getFigurineAmount =
@@ -212,6 +216,11 @@ async function getUserFigurinePaginated(userId, page) {
     return figurinesArray[0] || {total: 0, figurine: []}
 }
 
+async function getUserLastPackOpened(userId) {
+    return await (await packCollection()).find({userId: userId}).sort({date: -1}).limit(10).toArray()
+}
+
+
 module.exports = {
     insertUserFigurine: insertUserFigurine,
     insertUserFigurines: insertUserFigurines,
@@ -220,5 +229,6 @@ module.exports = {
     getFigurine: getFigurine,
     checkFigurineOnServerStart: checkFigurineOnServerStart,
     getUserFigurinePaginated: getUserFigurinePaginated,
+    getUserLastPackOpened: getUserLastPackOpened,
     pickRandomFigurines: pickRandomFigurines,
 }

@@ -49,13 +49,11 @@ router.post('/buyCoin', (req, res) => {
 router.post('/buyPack', (req, res) => {
     userRepository.findUserById(req.userId).then(u => {
         shopRepository.getPackOfferById(req.body.packId).then(async packOffer => {
-            console.log('buyPack ci entro')
             if (packOffer.cost > u.coinAmount) {
-                console.log('non cie soldi')
                 res.status(400).json({message: 'Insufficient funds'})
                 return;
             }
-            const packId = await shopRepository.createPack(req.userId, packOffer.cardAmount)
+            const packId = await shopRepository.createPack(req.userId, packOffer.name, packOffer.cardAmount)
             if (packId) {
                 await shopRepository.addCoinTransaction(new CoinTransaction(req.userId, -packOffer.cost, 'Pack bought', new Date()))
                 console.log('mando packId: ', packId)
@@ -67,7 +65,7 @@ router.post('/buyPack', (req, res) => {
     })
 })
 
-router.post('/packReedem', (req, res) => {
+router.put('/packReedem', (req, res) => {
     userRepository.findUserById(req.userId).then(u => {
         shopRepository.getPackById(req.body.packId).then(async pack => {
             if (!pack) {
@@ -94,7 +92,6 @@ router.post('/packReedem', (req, res) => {
 router.post('/cardsRedeem', (req, res) => {
     userRepository.findUserById(req.userId).then(u => {
         shopRepository.getPackById(req.body.packId).then(async pack => {
-            console.log('========DIOMERDOSOOOO======')
             console.log(JSON.stringify(req.body))
             if (!pack) {
                 res.status(400).json({message: 'Pack does not exist'})

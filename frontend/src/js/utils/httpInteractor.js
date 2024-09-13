@@ -47,6 +47,10 @@ class HttpInteractor {
                     reject('userNoAuth')
                     return;
                 }
+                if (res.status >= 400) {
+                    reject('error')
+                    return;
+                }
                 console.log('qua ci arrivo')
                 return res.json();
             }).then((json) => {

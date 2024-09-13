@@ -13,14 +13,15 @@
         <input id="email" type="email"><br>
         <label for="pwd">Password:</label>
         <input id="pwd" type="password"><br>
+        <p class="text-danger d-none" id="loginError">Invalid username or password.</p>
         <div class="justify-content-center align-items-center">
-            <button id="loginBtn" class="btn btn-primary" type="button" disabled>
+            <button id="loginBtn" class="btn btn-outline-danger" type="button" disabled>
                 <span id="buttonLoader" class="spinner-border spinner-border-sm d-none" role="status"
                       aria-hidden="true"></span>
                 Login
             </button>
         </div>
-        <a id="register" href="/">Non sei registrato? Registrati ora</a>
+        <p>Don't have an account? <a id="register" href="/">Sing up now.</a></p>
     </div>
 </div>
 <!--<script src="../src/js/view/login.js" type="module"></script>-->

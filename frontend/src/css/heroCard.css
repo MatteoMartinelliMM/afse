@@ -7,9 +7,9 @@
 .hero-card {
     position: relative;
     width: 100%;
-    max-width: 20vw; /* Imposta la larghezza massima per schermi grandi */
-    aspect-ratio: 1 / 1; /* Mantiene un rapporto di aspetto 1:1 */
-    overflow: hidden; /* Nasconde il contenuto in eccesso */
+    max-width: 20vw;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
     box-shadow: 0 4px 8px rgba(236, 29, 36, 1);
     font-family: marvel-font, serif;
 }
@@ -83,10 +83,34 @@
     padding: 0.5rem;
     box-sizing: border-box;
     display: flex;
-    text-transform: uppercase;
-    font-size: clamp(1vw, 1.5rem, 2vw);
     align-items: center;
-    gap: 0.2rem;
+    text-transform: uppercase;
+}
+
+.hero-label span {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: clamp(0.8rem, 1.5vw, 1.5rem);
+    line-height: 1.2;
+}
+
+
+.hero-label::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 25%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, #ec1d24);
+    pointer-events: none;
+}
+
+.hero-label::-webkit-scrollbar {
+    display: none;
 }
 
 .hero-card-disabled #level {
@@ -113,16 +137,21 @@
 }
 
 
-/* Media Queries per schermi più piccoli */
 @media (max-width: 768px) {
     .hero-card {
-        max-width: 30vw; /* Adatta la larghezza per schermi medi */
+        max-width: 30vw;
+    }
+    .hero-label span {
+        font-size: clamp(0.7rem, 2vw, 1.2rem);
     }
 }
 
 @media (max-width: 576px) {
     .hero-card {
-        max-width: 100%; /* Adatta la larghezza per schermi piccoli */
+        max-width: 100%;
+    }
+    .hero-label span {
+        font-size: clamp(0.6rem, 3vw, 1rem);
     }
 }
 
@@ -143,5 +172,25 @@
 .carousel-control-next-icon {
     background-color: #ec1d24; /* Colore di sfondo per l'icona */
     border-radius: 50%; /* Forma rotonda dell'icona */
+}
+
+.marvel-title {
+    font-family: 'marvel-font', sans-serif;
+    font-size: 4rem;
+    color: #ec1d24;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+.clickable-svg{
+    width: 40px;
+    height: 40px;
+    fill: #ec1d24;
+    cursor: pointer;
+}
+.clickable-svg:hover{
+    fill: white;
+    stroke-width: 3px;
+    stroke: #ec1d24;
+    transform: scale(1.1)
 }
 

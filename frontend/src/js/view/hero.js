@@ -28,8 +28,8 @@ class HeroView {
     }
 
     #createCollapseItems(container, items) {
-        if(items.length === 0){
-            container.classList.toggle('d-none',true)
+        if (items.length === 0) {
+            container.classList.toggle('d-none', true)
             return;
         }
         items.forEach(s => {

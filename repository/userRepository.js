@@ -9,7 +9,7 @@ async function userCollection() {
 async function insertUser(user) {
     user.pwd = hashPwd(user)
     let res = await (await userCollection()).insertOne(user);
-    return res.acknowledged;
+    return res.insertedId;
 }
 
 async function findAllUsers() {
@@ -52,7 +52,7 @@ async function updateUser(user, fieldsToUpdate) {
 }
 
 async function updateUserById(userId, fieldsToUpdate) {
-    const res = await (await userCollection()).updateOne({_id: new ObjectId(userId)}, {fieldsToUpdate})
+    const res = await (await userCollection()).updateOne({_id: new ObjectId(userId)}, {$set: fieldsToUpdate})
     return res.acknowledged
 }
 

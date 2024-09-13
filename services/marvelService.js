@@ -132,7 +132,6 @@ async function getCharacter(characterId) {
                 }
                 response.json()
                     .then((r) => {
-                        console.log(r)
                         const data = r.data.results[0];
                         data.description = data.description || 'No description available.';
                         data.comics.items = transformItems(data.comics.items);

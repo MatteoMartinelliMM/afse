@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+<div id="mainContainer" class="container">
+    <div id="mainLoaderContainer"
+         class="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
+        <div class="spinner-border text-danger " role="status"></div>
+    </div>
+    <div id="userContainer" class="container mx-auto d-none ">
+        <div class="row pt-5">
+            <div class="col text-center">
+                <div class="marvel-label">
+                    <h1 class="pt-3">INFO</h1>
+                </div>
+            </div>
+        </div>
+        <div id="userInfo" class="row mt-2 ms-2">
+            <div class="col-12 mb-3">
+                <label for="name">Name: </label>
+                <p id="name" class="form-control-plaintext"></p>
+            </div>
+            <div class="col-12 mb-3">
+                <label for="surname">Surname: </label>
+                <p id="surname" class="form-control-plaintext"></p>
+            </div>
+            <div class="col-12 mb-3">
+                <label for="email">Email: </label>
+                <p id="email" class="form-control-plaintext"></p>
+            </div>
+            <div class="col-12 mb-3">
+                <label for="username">Username: </label>
+                <p id="username" class="form-control-plaintext"></p>
+            </div>
+            <div class="col-12 mb-3">
+                <label for="favouriteHero">Favourite hero: </label>
+                <div class="d-flex align-items-center">
+                    <img id="heroImage" class="img-thumbnail rounded-circle profile-img">
+                    <p id="favouriteHero" class="form-control-plaintext ms-2"></p>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-5.0 -10.0 110.0 135.0"
+                         class="clickable-svg" data-bs-toggle="collapse" href="#collapseAutocomplete">
+                        <path d="m80.074 20.008c-0.54297 0.76563-1.4375 1.2656-2.4453 1.2656zm-9.9531-11.641c-2.3906-1.3789-4.2852-2.9727-6.8203-2.293-1.1914 0.32031-2.2695 1.0938-2.9297 2.2383l-40.445 70.055 0.69141 15.719 13.984-7.2695 40.434-70.043c1.3203-2.2773 0.52734-5.2539-1.7695-6.5781l0.003906-0.003906z"
+                              fill-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div class="collapse" id="collapseAutocomplete">
+                    <div class="autocomplete-container mt-2 mb-3">
+                        <label for="autocomplete">Change favourite hero</label>
+                        <input type="text" id="autocomplete" class="form-control" autocomplete="off" placeholder="Enter hero name...">
+                        <div id="autocomplete-list" class="autocomplete-suggestions"></div>
+                        <div id="autoCompleteLoader" class="justify-content-center align-items-center mt-2 d-none">
+                            <div class="spinner-border text-danger" role="status"></div>
+                        </div>
+                    </div>
+                </div>
+                <template id="suggestion-template">
+                    <div class="autocomplete-suggestion">
+                        <img class="avatar">
+                        <span class="name"></span>
+                    </div>
+                </template>
+            </div>
+            <div class="col-12 mb-3">
+                <label for="coinAmount">Coin amount: </label>
+                <div class="col-auto d-flex align-items-center mt-2">
+                    <div class="mini-coin d-flex justify-content-center align-items-center me-3">
+                        <div class="mini-coin-inner"></div>
+                    </div>
+                    <span id="coinAmount" class="token-count"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col container-fluid align-items-center">
+                <button id="logout" class="btn btn-outline-danger w-100 p-3 mt-2">LOGOUT</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col container-fluid align-items-center">
+                <button id="deleteAccount" class="btn btn-outline-danger w-100 p-3 mt-2">DELETE ACCOUNT</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteAccountLabel">Delete Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete your account?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -40,14 +40,15 @@ async function addCoinTransaction(transaction) {
 
 }
 
-async function createPack(userId, cardAmount) {
+async function createPack(userId, packName, cardAmount) {
     const res = await (await packCollection()).insertOne({
         _id: new ObjectId(),
         userId: userId,
+        packName: packName,
         cardAmount: cardAmount,
         date: new Date()
     })
-    if(res.acknowledged)
+    if (res.acknowledged)
         return res.insertedId
     return undefined
 }
@@ -80,6 +81,11 @@ async function updatePack(packId, fieldToUpdate) {
     return res.acknowledged
 }
 
+async function deletePacksByUserId(userId) {
+    return await (await packCollection()).deleteMany({userId: userId});
+}
+
+
 module.exports = {
     getAvailablePacks: getAvailablePacks,
     getAvailableCoinOffers: getAvailableCoinOffers,
@@ -88,5 +94,6 @@ module.exports = {
     getPackOfferById: getPackOfferById,
     getPackById: getPackById,
     createPack: createPack,
-    updatePack: updatePack
+    updatePack: updatePack,
+    deletePacksByUserId: deletePacksByUserId
 }

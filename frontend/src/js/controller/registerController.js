@@ -14,19 +14,16 @@ class RegisterController {
 
     onRegisterUser() {
         const u = new User(this.name, this.surname, this.username, this.email, this.pwd, this.isHero, this.profilePicture, this.favouriteHero)
-        let options = {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: 'include',
-            body: JSON.stringify(u)
-        }
         return new Promise((resolve, reject) => {
-            new HttpInteractor().post('http://localhost:3000/auth/register', options)
-                .then((res) => {
-                    console.log('anche qua mannaggia al cazzo')
-                    resolve();
-                }).catch((e) => reject(e))
+            new HttpInteractor().postAuthenticated('http://localhost:3000/auth/register', {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(u)
+            }).then(_ => resolve()).catch((e) => {
+                console.log(e)
+                reject(e);
+            })
         })
     }
 

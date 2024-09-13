@@ -34,17 +34,18 @@
         <span id="status">HERO</span>
 
     </div>
-    <div class="container mt-5">
+    <div class="autocomplete-container mt-5">
         <label for="autocomplete">Supereroe preferito:</label>
-        <input type="text" id="autocomplete" class="form-control" placeholder="Supereroe preferito">
+        <input type="text" id="autocomplete" class="form-control" autocomplete="off" placeholder="Supereroe preferito">
         <div id="autocomplete-list" class="autocomplete-suggestions"></div>
+        <template id="suggestion-template">
+            <div class="autocomplete-suggestion">
+                <img class="avatar">
+                <span class="name"></span>
+            </div>
+        </template>
     </div>
-    <template id="suggestion-template">
-        <div class="autocomplete-suggestion">
-            <img class="avatar">
-            <span class="name"></span>
-        </div>
-    </template>
+    <p class="text-danger d-none" id="registerError">Failed to register.</p>
     <button id="registerBtn" class="btn btn-primary"  type="button" disabled>
         <span id="buttonLoader" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
         Register

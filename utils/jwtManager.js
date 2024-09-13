@@ -9,16 +9,15 @@ function getToken(id) {
 }
 
 function verifyToken(req, res, next) {
-    console.log("madonna troia")
     console.log(req.cookies.jwt)
+
     jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, authData) => {
         if (err) {
-            console.log('signor vannacci ma lei non ha il token!')
+            console.log('User does not have a valid jwt token')
             //todo redirect to login
             res.status(403).json({error: 'User not logged'})
             return;
         }
-        console.log('e stronza')
         console.log(authData)
         req.userId = authData.id;
         next()

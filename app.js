@@ -12,7 +12,21 @@ app.options('*', corsSetup)
 app.use(cookieParser())
 app.use(express.json());
 
+app.use((req, res, next) => {
+    res.on('finish', () => {
+        console.log(`Request to ${req.method} ${req.originalUrl} finished with status ${res.statusCode}`);
+    });
+
+    res.on('error', (err) => {
+        console.error(`Error on request ${req.method} ${req.originalUrl}:`, err);
+    });
+
+    next();
+});
+
 require('./routes')(app);
+
+
 
 async function onStart() {
     //await figurineRepository.checkFigurineOnServerStart()

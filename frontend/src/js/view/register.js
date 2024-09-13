@@ -9,7 +9,7 @@ class RegisterView {
     }
 
     render() {
-        console.log('render register')
+        document.getElementById('navBar').classList.toggle('navBarDiv', true)
         const heroesAutocomplete = document.getElementById("autocomplete");
         const suggestionBox = document.getElementById("autocomplete-list");
 
@@ -18,13 +18,10 @@ class RegisterView {
             registerBtn.querySelector('#buttonLoader').classList.toggle('d-none')
 
             this.registerController.onRegisterUser()
-                .then(() => {
-                    console.log('e finalmente anche qua')
-                    navInstance.goTo('/home');
-                })
-                .catch(() => {
-                    console.log('zan zan zaaaan')
-                    //todo gestire errore registrazione
+                .then(_ => navInstance.goTo('/home'))
+                .catch(_ => {
+                    registerBtn.querySelector('#buttonLoader').classList.toggle('d-none')
+                    document.getElementById('registerError').classList.toggle('d-none', false)
                 });
         })
 

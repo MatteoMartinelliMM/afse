@@ -2,6 +2,7 @@ import TradesController from "../controller/tradesController.js";
 import navInstance from "../utils/navigator.js";
 import Masonry from 'masonry-layout/masonry';
 
+
 class TradesView {
     constructor() {
         this.tradesControler = new TradesController()
@@ -9,7 +10,6 @@ class TradesView {
 
     render() {
         console.log('render trades!')
-
         this.tradesControler.getTrades().then(data => {
             document.getElementById('othersOffer').classList.toggle('d-none', false)
             document.getElementById('yourOffer').classList.toggle('d-none', false)
@@ -54,7 +54,20 @@ class TradesView {
             return
         }
         document.getElementById('loaderContainer').classList.toggle('d-none', true)
-        container.innerHTML = `<h2 class="text-center">${currentUser ? 'YOU HAVE NOT CREATE ANY TRADE OFFERS' : 'NO TRADE OFFERS AVAILABLE'}</h2>`
+        if(currentUser){
+            container.innerHTML = `<h2 class="text-center">YOU HAVE NOT CREATED ANY TRADE OFFERS</h2>`
+            const h3 = document.createElement('h3');
+            h3.className = 'text-center'
+            const textNode = document.createTextNode("CREATE ONE ");
+            const link = document.createElement('a');
+            link.href = '/tradeOffer';
+            link.textContent = 'HERE';
+            h3.appendChild(textNode);
+            h3.appendChild(link);
+            container.appendChild(h3)
+            return
+        }
+        container.innerHTML = `<h2 class="text-center">NO TRADE OFFERS AVAILABLE</h2>`
     }
 
     #userProfile(offer) {

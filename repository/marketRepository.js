@@ -14,7 +14,8 @@ async function createTradeOffer(tradeOffer) {
         bidder: tradeOffer.userId,
         giveCard: tradeOffer.giveCards,
         receiveCard: tradeOffer.receiveCards,
-        status: tradeOffer.status
+        status: tradeOffer.status,
+        creationDate: new Date()
     })
 }
 
@@ -23,10 +24,15 @@ async function getMarketOffersByUserId(userId) {
 }
 
 async function getMarketOffersByOthersUser(userId, page) {
-    return await (await marketOfferCollection()).find({
-        bidder: {$ne: userId},
-        status: 'inTrade'
-    }).skip((page - 1) * 10).limit(10).toArray()
+    return await (await marketOfferCollection())
+        .find({
+            bidder: {$ne: userId},
+            status: 'inTrade'
+        })
+        .sort({creationDate: -1})
+        .skip((page - 1) * 10)
+        .limit(10)
+        .toArray()
 }
 
 async function findInTradeOffersForUser(userId) {
@@ -58,6 +64,14 @@ async function updateTradeStatus(offerId, fieldsToUpdate) {
     return res.acknowledged
 }
 
+async function getRecentDeals() {
+    return await (await marketOfferCollection()).find({status: 'completed'}).sort({dealDate: -1}).limit(10).toArray()
+}
+
+async function deleteInTradeOffersByUserId(userId) {
+    return await (await marketOfferCollection()).deleteMany({status: 'inTrade', bidder: userId});
+}
+
 module.exports = {
     createMarketOffer: createTradeOffer,
     getMarketOffersByUserId: getMarketOffersByUserId,
@@ -67,5 +81,7 @@ module.exports = {
     getOfferById: getOfferById,
     deleteTradeOfferById: deleteTradeOfferById,
     updateTradeStatus: updateTradeStatus,
+    getRecentDeals: getRecentDeals,
+    deleteInTradeOffersByUserId: deleteInTradeOffersByUserId,
     getMarketOffers: getMarketOffers,
 }

@@ -1,4 +1,5 @@
 import {loginUser} from "../auth.js";
+import HttpInteractor from "@/js/utils/httpInteractor";
 
 class LoginController {
 
@@ -9,12 +10,16 @@ class LoginController {
 
     onLoginPressed() {
         return new Promise((resolve, reject) => {
-            loginUser(this.email, this.pwd)
-                .then(() => resolve())
-                .catch((e) => {
-                    console.error('errore in login', e)
-                    reject()
-                })
+            return new HttpInteractor().postAuthenticated('http://localhost:3000/auth/login', {
+                body: JSON.stringify({email: this.email, pwd: this.pwd}),
+                headers: {"Content-Type": "application/json",},
+            }).then(() => {
+                console.log('ciao')
+                resolve();
+            }).catch(e => {
+                console.error('errore in login', e)
+                reject()
+            })
         })
 
     }

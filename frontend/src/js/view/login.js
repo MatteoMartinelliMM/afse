@@ -9,17 +9,21 @@ class LoginView {
     }
 
     render() {
-        document.getElementById('navBar').classList.toggle('d-none', true)
+        console.log('call render')
+        document.getElementById('navBarDiv').classList.toggle('d-none', true)
+        const loginErr = document.getElementById('loginError')
         const loginBtn = document.getElementById('loginBtn')
         loginBtn.addEventListener('click', () => {
             loginBtn.querySelector('#buttonLoader').classList.toggle('d-none')
             this.loginController.onLoginPressed()
                 .then(() => {
-                    sessionStorage.setItem('isAuthenticated','true')
+                    loginErr.classList.toggle('d-none', true)
+                    sessionStorage.setItem('isAuthenticated', 'true')
                     navInstance.goTo('/home');
                 })
-                .catch(() => {
-                    //todo gestione errore login
+                .catch(_ => {
+                    loginBtn.querySelector('#buttonLoader').classList.toggle('d-none')
+                    loginErr.classList.toggle('d-none', false);
                 })
         })
 

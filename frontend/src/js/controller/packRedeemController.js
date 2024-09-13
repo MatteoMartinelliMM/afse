@@ -15,7 +15,7 @@ class PackRedeemController {
                 reject('noPrams')
                 return;
             }
-            new HttpInteractor().postAuthenticated('http://localhost:3000/shop/packReedem', {
+            new HttpInteractor().putAuthenticated('http://localhost:3000/shop/packReedem', {
                 headers: {
                     'Content-Type': 'application/json' 
                 },

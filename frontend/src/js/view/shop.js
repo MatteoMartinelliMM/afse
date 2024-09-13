@@ -1,6 +1,7 @@
 import ShopController from "@/js/controller/shopController";
 import navInstance from "@/js/utils/navigator";
 
+
 class ShopView {
     constructor() {
         this.shopController = new ShopController()
@@ -64,7 +65,7 @@ class ShopView {
                 packContainer.innerHTML += `
                         <div class="col-auto text-center mt-2">
                             <div class="card" style="width: 18rem;">
-                                <img id="btn${e._id}" src="/assets/common_pack.png" class="card-img-top clickable-img ${user.coinAmount < e.cost ? 'disabled' : ''}" alt="...">
+                                <img id="btn${e._id}" src="${e.name === 'Common Pack' ? '/assets/common_pack.png' : '/assets/special_pack.png'}" class="card-img-top clickable-img ${user.coinAmount < e.cost ? 'disabled' : ''}" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">${e.name}</h5>
                                     <p class="card-text">${e.description}</p>

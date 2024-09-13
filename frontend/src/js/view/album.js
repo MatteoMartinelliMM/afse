@@ -1,6 +1,7 @@
 import AlbumController from "@/js/controller/albumController";
 import navInstance from "@/js/utils/navigator";
 
+
 class AlbumView {
     constructor() {
         this.albumController = new AlbumController()
@@ -43,8 +44,22 @@ class AlbumView {
                 row.appendChild(cell)
                 index++
             })
-            albumContainer.appendChild(row)
+            this.resizeText()
         }).catch((e) => console.error(e))
+    }
+
+     resizeText() {
+        const labels = document.querySelectorAll('.hero-label');
+        labels.forEach(label => {
+            const span = label.querySelector('span');
+            let fontSize = parseInt(window.getComputedStyle(span).fontSize);
+            span.style.whiteSpace = 'nowrap';
+
+            while (span.scrollWidth > label.offsetWidth && fontSize > 8) {
+                fontSize--;
+                span.style.fontSize = `${fontSize}px`;
+            }
+        });
     }
 
     #createPaginationItems(totalPages, currentPage) {

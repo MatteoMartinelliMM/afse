@@ -1,6 +1,6 @@
 import TradeOfferController from "@/js/controller/tradeOfferController";
-import {Modal} from 'bootstrap';
 import {debounce} from "@/js/utils/viewUtils";
+
 
 class TradeOfferView {
     constructor() {
@@ -84,7 +84,15 @@ class TradeOfferView {
         const cell = document.createElement('div')
         cell.className = 'col justify-content-center text-center mt-2'
         cell.innerHTML += `<h2 class="text-center">YOU DON'T HAVE ANY DUPLICATES</h2>`
-        cell.innerHTML += `<h3 class="text-center">buy more packs to have cards to trade</h3>`
+        const h3 = document.createElement('h3');
+        h3.className = 'text-center'
+        const textNode = document.createTextNode(" to have cards to trade");
+        const link = document.createElement('a');
+        link.href = '/shop';
+        link.textContent = 'buy more packs';
+        h3.appendChild(link);
+        h3.appendChild(textNode);
+        cell.appendChild(h3)
         row.appendChild(cell)
         container.appendChild(cell)
 

@@ -28,8 +28,8 @@
                  class="col-12 container-fluid d-flex justify-content-center align-items-center mt-3">
                 <div class="spinner-border text-danger " role="status"></div>
             </div>
-            <div id="collectionCarousel" class=" carousel slide d-none" data-ride="carousel">
-                <div class="carousel-inner">
+            <div id="collectionCarousel" class="carousel slide d-none" data-ride="carousel">
+                <div class="carousel-inner" id="collectionInnerCarousel">
                 </div>
                 <a class="carousel-control-prev" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -37,6 +37,44 @@
                 <a class="carousel-control-next" role="button" data-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 </a>
+            </div>
+        </div>
+    </div>
+    <div id="recentPacksContainer" class="container mx-auto d-none">
+        <div class="row pt-5">
+            <div class="col text-center">
+                <div class="marvel-label">
+                    <h1 class="pt-3">RECENT PACKS OPENED</h1>
+                </div>
+            </div>
+        </div>
+        <div id="recentPacksInnerContainer" class="row mt-2">
+            <div id="recentPacksLoaderContainer"
+                 class="col-12 container-fluid d-flex justify-content-center align-items-center mt-3">
+                <div class="spinner-border text-danger " role="status"></div>
+            </div>
+            <div id="recentPacksCarousel" class=" carousel slide d-none" data-ride="carousel" data-interval="3000">
+                <div class="carousel-inner" id="recentPacksInnerCarousel">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="recentDealsContainer" class="container mx-auto d-none">
+        <div class="row pt-5">
+            <div class="col text-center">
+                <div class="marvel-label">
+                    <h1 class="pt-3">RECENT DEALS DONE</h1>
+                </div>
+            </div>
+        </div>
+        <div id="recentDealsInnerContainer" class="row mt-2 mb-3">
+            <div id="recentDealsLoaderContainer"
+                 class="col-12 container-fluid d-flex justify-content-center align-items-center mt-3">
+                <div class="spinner-border text-danger " role="status"></div>
+            </div>
+            <div id="recentDealsCarousel" class=" carousel slide d-none" data-ride="carousel">
+                <div class="carousel-inner" id="recentDealsInnerCarousel">
+                </div>
             </div>
         </div>
     </div>

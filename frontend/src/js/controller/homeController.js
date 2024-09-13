@@ -24,6 +24,10 @@ class HomeController {
         switch (section) {
             case 'collection':
                 return this.getUserCollection();
+            case 'recentPacks':
+                return this.getRecentPacks();
+            case 'recentDeals':
+                return this.getRecentDeals();
             default:
                 return;
         }
@@ -47,33 +51,17 @@ class HomeController {
     }
 
     onCollectionNextPagePressed() {
-        this.currentCollectionPage + 1 <= this.totalPageCollection  ? ++this.currentCollectionPage : this.currentCollectionPage = 1
+        console.log('before onCollectionNextPagePressed(): ' , this.currentCollectionPage)
+        this.currentCollectionPage + 1 <= this.totalPageCollection ? ++this.currentCollectionPage : this.currentCollectionPage = 1
+        console.log('after onCollectionNextPagePressed(): ' , this.currentCollectionPage)
         return this.collectionPageDownloaded.findIndex(page => page === this.currentCollectionPage) === -1
-        /* return new Promise((resolve, reject) => {
-             if () {
-                 this.getUserCollection()
-                     .then(cards => {
-                         resolve(cards)
-                     }).catch(e => reject(e))
-                 return;
-             }
-             resolve('alreadyDownloaded')
-         })*/
     }
 
     onCollectionPreviousPagePressed() {
+        console.log('before onCollectionPreviousPagePressed(): ' , this.currentCollectionPage)
         this.currentCollectionPage - 1 !== 0 ? --this.currentCollectionPage : this.currentCollectionPage = this.totalPageCollection
+        console.log('after onCollectionPreviousPagePressed(): ' , this.currentCollectionPage)
         return this.collectionPageDownloaded.findIndex(page => page === this.currentCollectionPage) === -1
-        /*return new Promise((resolve, reject) => {
-            if () {
-                this.getUserCollection()
-                    .then(cards => {
-                        resolve(cards)
-                    }).catch(e => reject(e))
-                return;
-            }
-            resolve('alreadyDownloaded')
-        })*/
     }
 
     hideCollectionCarouselButton() {
@@ -82,6 +70,32 @@ class HomeController {
 
     getCurrentCollectionPage() {
         return this.currentCollectionPage
+    }
+
+    getRecentDeals() {
+        return new Promise((resolve, reject) => {
+            new HttpInteractor().getAuthenticated(`http://localhost:3000/home/recentDeals`)
+                .then(deals => {
+                    resolve(deals)
+                })
+                .catch(e => {
+                    console.log(e)
+                    reject('networkError')
+                })
+        })
+    }
+
+    getRecentPacks() {
+        return new Promise((resolve, reject) => {
+            new HttpInteractor().getAuthenticated(`http://localhost:3000/home/openedPacks`)
+                .then(packs => {
+                    resolve(packs)
+                })
+                .catch(e => {
+                    console.log(e)
+                    reject('networkError')
+                })
+        })
     }
 }
 

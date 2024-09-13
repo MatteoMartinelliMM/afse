@@ -5,6 +5,7 @@ const userRepository = require('../repository/userRepository')
 const marketRepository = require('../repository/marketRepository')
 const marvelService = require("../services/marvelService");
 const {TradeOfferModel} = require("../model/tradeOfferModel");
+const {onErrorResponse} = require("../utils/ext");
 router.use(verifyToken)
 
 router.get('/tradableCards', async (req, res) => {
@@ -46,10 +47,7 @@ router.put('/createOffer', (req, res) => {
             u.inTrade = inTrade
             u.exchangeable = newExchangeable
             res.status(200).json(await getExchangeableFigurines(u))
-        }).catch(e => {
-        console.log(e)
-        return res.status(500).json({message: 'cannot perform request'});
-    })
+        }).catch(e => onErrorResponse(e, res))
 })
 
 router.get('/trades', (req, res) => {
@@ -70,22 +68,10 @@ router.post('/acceptOffer', (req, res) => {
                 processTrade(currentUser, bidderUser, offer).then(_ => {
                     cleanUpInvalidTrades(currentUser, bidderUser).then(_ => {
                         getTrades(req, res, req.body.currentPage)
-                    }).catch(e => {
-                        console.log(e);
-                        res.status(500).json({message: "Cannot perform request"})
-                    })
-                }).catch(e => {
-                    console.log(e);
-                    res.status(500).json({message: "Cannot perform request"})
-                })
-            }).catch(e => {
-            console.log(e);
-            res.status(500).json({message: "Cannot perform request"})
-        })
-    }).catch(e => {
-        console.log(e);
-        res.status(500).json({message: "Cannot perform request"})
-    })
+                    }).catch(e => onErrorResponse(e, res))
+                }).catch(e => onErrorResponse(e, res))
+            }).catch(e => onErrorResponse(e, res))
+    }).catch(e => onErrorResponse(e, res))
 })
 
 router.delete('/deleteOffer', (req, res) => {
@@ -110,7 +96,7 @@ router.delete('/deleteOffer', (req, res) => {
                         exchangeable: user.exchangeable,
                         inTrade: user.inTrade
                     }).then(_ => res.status(200).json({message: 'Offer deleted successfully'}))
-                        .catch(_ => res.status(500).json({message: 'Cannot perform request'}))
+                        .catch(e => onErrorResponse(e, res))
                     return;
                 }
                 res.status(500).json({message: 'Cannot perform request'})
@@ -123,12 +109,12 @@ function getTrades(req, res, page) {
         marketRepository.getMarketOffersByOthersUser(req.userId),
         marketRepository.getTotalMarketOffersByOthersUser(req.userId),
         userRepository.findUserById(req.userId)])
-        .then(async offersResults => {
-            const userOffers = offersResults[0].value
-            const othersOffers = offersResults[1].value
-            const totalOffers = offersResults[2].value
-            const currentUser = offersResults[3].value
-            if (!userOffers || !othersOffers || !totalOffers || !currentUser) {
+        .then(async results => {
+            const userOffers = results[0].value
+            const othersOffers = results[1].value
+            const totalOffers = results[2].value
+            const currentUser = results[3].value
+            if (results.some(result => result.status === 'rejected')) {
                 res.status(500).json({message: 'Cannot perform request'})
                 return
             }
@@ -213,6 +199,7 @@ async function processTrade(currentUser, bidderUser, offer) {
 
     await marketRepository.updateTradeStatus(offer._id.toString(), {
         receiver: currentUser._id.toString(),
+        dealDate: new Date(),
         status: 'completed'
     })
 }

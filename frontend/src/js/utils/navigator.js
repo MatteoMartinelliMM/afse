@@ -19,6 +19,10 @@ class Navigator {
                     viewProvider.getView(path)
                         .then((view) => {
                             view.render();
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
                         })
                         .catch((e) => console.log(e))
                 )
@@ -27,7 +31,7 @@ class Navigator {
     }
 
     navigate(path) {
-        this.routes[path] ? this.routes[path]() : console.error(`Route for ${path} not found`)
+        this.routes[path] ? this.routes[path]() : this.routes['/404']()
     }
 
     listen(callback) {
@@ -46,9 +50,21 @@ class Navigator {
             //const path = window.location.pathname.replace(navInstance.BASE_PATH, '');
             //navInstance.navigate(path); // Navigate using your SPA's routing logic on initial load
         });
+        window.addEventListener('pushstate', (event) => {
+            console.log('Navigazione via pushState');
+            const path = window.location.pathname.replace(this.BASE_PATH, '').split('.')[0];
+            this.navigate(path);
+        });
+
+        window.addEventListener('replacestate', (event) => {
+            console.log('Navigazione via replaceState');
+            const path = window.location.pathname.replace(this.BASE_PATH, '').split('.')[0];
+            this.navigate(path);
+        });
     }
 
     goTo(path, query = '') {
+        path = path === '/' ? '/home' : path
         const fullPath = this.BASE_PATH + path;
         console.log(fullPath)
         window.history.pushState({}, '', window.location.origin + fullPath + query)
@@ -78,6 +94,8 @@ navInstance.addRoute('/tradeOffer')
 navInstance.addRoute('/shop')
 navInstance.addRoute('/hero')
 navInstance.addRoute('/packRedeem')
+navInstance.addRoute('/profile')
+navInstance.addRoute('/404')
 
 Object.freeze(navInstance)
 

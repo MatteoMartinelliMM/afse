@@ -27,10 +27,11 @@ export function loginUser(email, pwd) {
     let opt = {
         method: "POST",
         body: JSON.stringify({email: email, pwd: pwd}),
-        headers: {"Content-Type": "application/json",},
+        headers: {"Content-Type": "application/json"},
         credentials: 'include',
     }
     return new Promise((resolve, reject) => {
+        new HttpC
         fetch('http://localhost:3000/auth/login', opt)
             .then((response) => {
                 if (response.status === 200) {
@@ -38,7 +39,7 @@ export function loginUser(email, pwd) {
                     return;
                 }
                 reject()
-            }).catch((e) => reject())
+            }).catch((e) => reject(e))
     });
 
 }

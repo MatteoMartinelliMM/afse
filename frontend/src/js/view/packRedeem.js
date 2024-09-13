@@ -7,7 +7,7 @@ class PackRedeem {
     }
 
     render() {
-        document.getElementById('navBar').classList.toggle('d-none', true)
+        document.getElementById('navBarDiv').classList.toggle('d-none', true)
         this.packRedeemController.getPack().then(data => {
             document.getElementById('loaderContainer').classList.toggle('d-none', true)
             document.getElementById('packMainContainer').classList.toggle('d-none', false)
@@ -15,7 +15,7 @@ class PackRedeem {
             document.getElementById('confirmBtn').addEventListener('click', () =>
                 this.packRedeemController.onConfirmCardsChoice()
                     .then(r => {
-                        document.getElementById('navBar').classList.toggle('d-none', false)
+                        document.getElementById('navBarDiv').classList.toggle('d-none', false)
                         navInstance.goToAndReplace('/shop');
                     })
                     .catch(e => console.log(e)))
@@ -84,15 +84,29 @@ class PackRedeem {
         container.appendChild(row)
         cards.forEach(h => {
             document.getElementById(`discard${h.id}`).addEventListener('click', () => {
+                const isDisabled = !this.packRedeemController.canConfirmChoice()
                 if (this.packRedeemController.onChangeArea(h.id, 'discard')) {
                     this.#fillAllAreas(this.packRedeemController.cards)
-                    document.getElementById('confirmBtn').disabled = !this.packRedeemController.canConfirmChoice()
+                    const isDisabledAfter = !this.packRedeemController.canConfirmChoice()
+                    if (isDisabled && !isDisabledAfter)
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    document.getElementById('confirmBtn').disabled = isDisabledAfter
                 }
             })
             document.getElementById(`trade${h.id}`).addEventListener('click', () => {
+                const isDisabled = !this.packRedeemController.canConfirmChoice()
                 if (this.packRedeemController.onChangeArea(h.id, 'trade')) {
                     this.#fillAllAreas(this.packRedeemController.cards)
-                    document.getElementById('confirmBtn').disabled = !this.packRedeemController.canConfirmChoice()
+                    const isDisabledAfter = !this.packRedeemController.canConfirmChoice()
+                    if (isDisabled && !isDisabledAfter)
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    document.getElementById('confirmBtn').disabled = isDisabledAfter
                 }
             })
         })

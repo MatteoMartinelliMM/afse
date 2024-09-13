@@ -6,3 +6,7 @@ String.prototype.isValidEmail = function () {
 String.prototype.isNullOrEmpty = function () {
     return this === undefined || this === null || this.trim() === ''
 }
+
+String.prototype.camelCaseToSpaces = function () {
+    return this.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
+}
