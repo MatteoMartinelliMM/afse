@@ -19,14 +19,9 @@
     cursor: pointer;
 }
 
-.navbar-invisible {
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s, opacity 0.3s linear;
+.nav-item.active .nav-link {
+    border-bottom: 3px solid #ec1d24;
+    padding-bottom: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.navbar-visible {
-    visibility: visible;
-    opacity: 1;
-    transition: visibility 0s, opacity 0.3s linear;
-}

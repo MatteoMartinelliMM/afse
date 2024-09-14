@@ -5,7 +5,9 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const {corsSetup} = require("./utils/corsConfig");
 const figurineRepository = require("./repository/figurineRepository")
-
+const swaggerUIPath= require("swagger-ui-express");
+const swaggerjsonFilePath = require('./.swagger.json');
+app.use("/api-docs", swaggerUIPath.serve, swaggerUIPath.setup(swaggerjsonFilePath));
 
 app.use(corsSetup)
 app.options('*', corsSetup)

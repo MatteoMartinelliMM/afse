@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --ignore frontend/ app.js"
+    "start": "nodemon --ignore frontend/ app.js",
+    "dev": "nodemon index",
+    "swagger-autogen": "node swagger.js"
   },
   "author": "Matteo Martinelli",
   "license": "ISC",
