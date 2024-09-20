@@ -15,7 +15,7 @@ function verifyToken(req, res, next) {
         if (err) {
             console.log('User does not have a valid jwt token')
             //todo redirect to login
-            res.status(403).json({error: 'User not logged'})
+            res.status(401).json({error: 'User not logged'})
             return;
         }
         console.log(authData)

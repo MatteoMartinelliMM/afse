@@ -1,6 +1,6 @@
 import AlbumController from "@/js/controller/albumController";
 import navInstance from "@/js/utils/navigator";
-import {attachListners} from "@/js/navbar";
+import {setNavbarItemActive} from "@/js/components/navbar";
 
 
 class AlbumView {
@@ -9,8 +9,7 @@ class AlbumView {
     }
 
     render() {
-        console.log('render album')
-        attachListners()
+        setNavbarItemActive('album')
         document.getElementById('loaderContainer').classList.toggle('d-none', false)
         const albumContainer = document.getElementById('albumContainer')
         this.albumController.enterOnPage().then((json) => {
@@ -39,10 +38,7 @@ class AlbumView {
                         </div>
                 `;
                 if (h.owned)
-                    cell.addEventListener('click', () => {
-                        navInstance.goTo('/hero', `?id=${h.id}`)
-                        console.log(`clicked ${h.id}`)
-                    })
+                    cell.addEventListener('click', () => navInstance.goTo('/hero', `?id=${h.id}`))
                 row.appendChild(cell)
                 index++
             })

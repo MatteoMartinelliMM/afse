@@ -29,7 +29,6 @@ class RegisterView {
                     registerError.innerHTML = data.message
                 })
                 .catch(e => {
-                    console.log('da view' ,e)
                     registerBtn.querySelector('#buttonLoader').classList.toggle('d-none')
                     const registerError = document.getElementById('registerError')
                     registerError.classList.toggle('d-none', false)
@@ -63,7 +62,7 @@ class RegisterView {
             content: passwordRequirements,
             html: true,
             placement: 'left',
-            trigger: 'hover'
+            trigger: 'focus'
         });
 
         const baseInfo = document.getElementById("baseInfo")

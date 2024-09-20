@@ -5,8 +5,9 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const {corsSetup} = require("./utils/corsConfig");
 const figurineRepository = require("./repository/figurineRepository")
-const swaggerUIPath= require("swagger-ui-express");
-const swaggerjsonFilePath = require('./.swagger.json');
+const swaggerUIPath = require("swagger-ui-express");
+const swaggerjsonFilePath = require('./swagger.json');
+const {getClientInstance} = require("./utils/mongodb");
 app.use("/api-docs", swaggerUIPath.serve, swaggerUIPath.setup(swaggerjsonFilePath));
 
 app.use(corsSetup)
@@ -28,7 +29,16 @@ app.use((req, res, next) => {
 
 require('./routes')(app);
 
-
+process.on('SIGINT', async () => {
+    try {
+        await getClientInstance().close();
+        console.log('Database connection closed.');
+        process.exit(0);
+    } catch (e) {
+        console.error('Error closing MongoDB connection', e);
+        process.exit(1);
+    }
+});
 
 async function onStart() {
     //await figurineRepository.checkFigurineOnServerStart()
@@ -37,11 +47,9 @@ async function onStart() {
     }, parseInt(process.env.NEW_FIGURINE_CHECKER_TIMER))
 }
 
-onStart().then(() => {
-    app.get('/', (req, res) => res.status(200).json({
-        messsage: "Se nimmondo esistsse un pò di bene e ognun si considerasse suo fratello.\n" + "Vi sarebbero meno pensieri e meno bene.\n" + "E il mondo ne sarebbe assai più bello"
-    }));
-
-    app.listen(process.env.PORT, () => console.log(`Server started at port ${process.env.PORT}`))
-});
+getClientInstance().then(() => {
+    onStart().then(() => {
+        app.listen(process.env.PORT, () => console.log(`Server started at port ${process.env.PORT}`))
+    })
+})
 

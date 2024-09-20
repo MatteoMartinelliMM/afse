@@ -18,7 +18,6 @@ class HtmlPageLoader {
                 .then((html) => {
                     const parser = new DOMParser()
                     const doc = parser.parseFromString(html, 'text/html')
-                    console.log('qua casca l asino')
                     document.getElementById('content').innerHTML = doc.body.innerHTML
                     this.applyHeadContent(doc.head)
                     resolve();
@@ -33,13 +32,10 @@ class HtmlPageLoader {
 
     applyHeadContent(headContent) {
         // Append styles and scripts to the current document head
-        const stylesAndScripts = headContent.querySelectorAll('link[rel="stylesheet"], style, script');
-        stylesAndScripts.forEach(node => {
-            // Check if the style or script already exists in the document to avoid duplication
-            if (!document.head.contains(node)) {
-                document.head.appendChild(node.cloneNode(true));
-            }
-        });
+        const newTitle = headContent.querySelector('title');
+        if (newTitle) {
+            document.title = newTitle.textContent; // Cambia il titolo della pagina
+        }
     }
 }
 

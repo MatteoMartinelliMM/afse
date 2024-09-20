@@ -1,6 +1,6 @@
 import TradeOfferController from "@/js/controller/tradeOfferController";
 import {debounce} from "@/js/utils/viewUtils";
-import {attachListners} from "@/js/navbar";
+import {setNavbarItemActive} from "@/js/components/navbar";
 
 
 class TradeOfferView {
@@ -9,9 +9,7 @@ class TradeOfferView {
     }
 
     render() {
-        console.log('render trade offer!')
-        attachListners()
-
+        setNavbarItemActive('marketplace')
         this.tradeOfferController.enterOnPage().then(data => {
             document.getElementById('loaderContainer').classList.toggle('d-none', true)
             document.getElementById('exchangeableContainer').classList.toggle('d-none', false)
@@ -40,7 +38,6 @@ class TradeOfferView {
         if (cards.length !== 0) {
             cards.forEach(h => {
                 if (index % 4 === 0 && index !== 0) {
-                    console.log('entro qua')
                     container.appendChild(row)
                     row = document.createElement('div')
                     row.className = 'row justify-content-center'

@@ -1,4 +1,3 @@
-import {registerUser} from "../auth.js";
 import User from "../../js/model/user.js"
 import HttpInteractor from "@/js/utils/httpInteractor";
 
@@ -35,18 +34,16 @@ class RegisterController {
     onFavouriteHeroPicked(favHero) {
         if (this.herosList) {
             const h = this.herosList.find(h => h.id === favHero)
-            this.profilePicture = `${h.thumbnail.path}.${h.thumbnail.extension}`
-            this.favouriteHero = favHero
-            console.log('favourite hero', this.favouriteHero)
-            return this.disableRegisterBtn()
+            if (h) {
+                this.profilePicture = `${h.thumbnail.path}.${h.thumbnail.extension}`
+                this.favouriteHero = favHero
+                console.log('favourite hero', this.favouriteHero)
+            }
         }
+        return this.disableRegisterBtn()
     }
 
     onInputTyping(id, value) {
-        console.log('=======================')
-        console.log('id: ', id)
-        console.log('value: ', value)
-        console.log('=======================')
         switch (id) {
             case 'name':
                 this.name = value

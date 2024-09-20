@@ -42,15 +42,17 @@ class HttpInteractor {
         console.log('calling: ', url)
         return new Promise((resolve, reject) => {
             fetch(url, options).then((res) => {
-                if (res.status === 403) {
+                if (res.status === 401) {
+                    sessionStorage.setItem('isAuthenticated', 'false')
                     navigator.goTo('/login')
                     reject('userNoAuth')
                     return;
                 }
-                console.log('qua ci arrivo')
+                if (res.status >= 400)
+                    reject(res.status)
+
                 return res.json();
             }).then((json) => {
-                console.log('qua pure')
                 resolve(json)
             }).catch((e) => {
                 console.log('erorre in doTheCall', e)

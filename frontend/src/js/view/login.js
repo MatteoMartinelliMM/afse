@@ -9,8 +9,10 @@ class LoginView {
     }
 
     render() {
-        console.log('call render')
         document.getElementById('navBar').classList.toggle('d-none', true)
+        document.getElementById('logo').addEventListener('click', () => {
+            this.loginController.dai()
+        })
         const loginErr = document.getElementById('loginError')
         const loginBtn = document.getElementById('loginBtn')
         loginBtn.addEventListener('click', () => {
@@ -36,17 +38,11 @@ class LoginView {
         const email = document.getElementById('email')
         email.addEventListener('input', (event) => {
             console.log(email.value)
-            debounce(() => {
-                console.log('onDebounce')
-                return loginBtn.disabled = this.loginController.onEmailTyping(email.value);
-            })
+            debounce(() => loginBtn.disabled = this.loginController.onEmailTyping(email.value))
         })
 
         const pwd = document.getElementById('pwd')
-        pwd.addEventListener('input', (event) => {
-            console.log(pwd.value)
-            debounce(() => loginBtn.disabled = this.loginController.onPwdTyping(pwd.value))
-        })
+        pwd.addEventListener('input', (event) => debounce(() => loginBtn.disabled = this.loginController.onPwdTyping(pwd.value)))
 
 
     }

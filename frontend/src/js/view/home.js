@@ -2,8 +2,7 @@ import HomeController from "../controller/homeController.js";
 import navInstance from "../utils/navigator.js";
 import {Carousel} from "bootstrap";
 import {main} from "@popperjs/core";
-import {attachListners} from "@/js/navbar";
-
+import {setNavbarItemActive} from "@/js/components/navbar";
 
 class HomeView {
     constructor() {
@@ -13,6 +12,7 @@ class HomeView {
     render() {
         console.log('render() home')
         document.getElementById('navBar').classList.toggle('d-none', false)
+        setNavbarItemActive('home')
         this.homeController.getUserInfo().then(user => {
             document.getElementById('mainLoaderContainer').classList.toggle('d-none', true)
             const collectionContainer = document.getElementById('collectionContainer')
@@ -141,10 +141,7 @@ class HomeView {
                             </div>
                         </div>
                 `;
-            cell.addEventListener('click', () => {
-                navInstance.goTo('/hero', `?id=${f.figurineId}`)
-                console.log(`clicked ${f.id}`)
-            })
+            cell.addEventListener('click', () => navInstance.goTo('/hero', `?id=${f.figurineId}`))
             row.appendChild(cell)
             index++
         })
@@ -162,9 +159,7 @@ class HomeView {
 
     #createLoaderCarouselItem(carouselItemContainer) {
         const firstCarouselItem = document.getElementById('1CarouselItem');
-        console.log('il first carousel item: \n', firstCarouselItem.innerHTML)
         const firstItemHeight = firstCarouselItem ? firstCarouselItem.offsetHeight : 400;
-        console.log('item height: ', firstItemHeight)
         const carouselItem = document.createElement('div')
         carouselItem.setAttribute('data-page', this.homeController.getCurrentCollectionPage())
         carouselItem.id = `${this.homeController.getCurrentCollectionPage()}CarouselItem`

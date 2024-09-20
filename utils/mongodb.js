@@ -1,6 +1,7 @@
 const {MongoClient, ServerApiVersion} = require('mongodb');
 const uri = "mongodb+srv://tvoosai:ciao12345@afsecluster.qror5sm.mongodb.net/?retryWrites=true&w=majority&appName=afsecluster";
 
+let db;
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(process.env.DATABASE_PATH, {
     serverApi: {
@@ -10,24 +11,29 @@ const client = new MongoClient(process.env.DATABASE_PATH, {
     }
 });
 
-async function connectClient() {
+async function getClientInstance() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
-        await client.connect()
-        console.log('Db connected successfully.');
+        if (!db) {
+            await client.connect()
+            console.log('Db connected successfully.');
+            db = client.db('afse')
+        }
         return client;
     } catch (e) {
-        console.log('entro qua')
         console.error(e);
     }
 }
 
 async function getDbInstance() {
-    let c = await connectClient();
-    return c.db('afse')
+    if (!db) {
+        throw new Error('Database connection not initialized.');
+    }
+    return db;
 }
 
 
 module.exports = {
     getDbInstance: getDbInstance,
+    getClientInstance: getClientInstance,
 }

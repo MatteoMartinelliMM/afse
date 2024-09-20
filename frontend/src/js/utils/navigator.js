@@ -36,30 +36,15 @@ class Navigator {
 
     listen(callback) {
         window.addEventListener('popstate', (event) => {
-            console.log('chiamato il listner')
             const path = window.location.pathname.replace(this.BASE_PATH, '').split('.')[0]
             console.log('navigo verso: ', path)
             this.navigate(path)
-            console.log('dal listner')
             callback()
         })
         window.addEventListener('load', () => {
             console.log('reload');
             console.log(window.location.pathname);
             this.goTo(window.location.pathname.replace(this.BASE_PATH, ''), window.location.search)
-            //const path = window.location.pathname.replace(navInstance.BASE_PATH, '');
-            //navInstance.navigate(path); // Navigate using your SPA's routing logic on initial load
-        });
-        window.addEventListener('pushstate', (event) => {
-            console.log('Navigazione via pushState');
-            const path = window.location.pathname.replace(this.BASE_PATH, '').split('.')[0];
-            this.navigate(path);
-        });
-
-        window.addEventListener('replacestate', (event) => {
-            console.log('Navigazione via replaceState');
-            const path = window.location.pathname.replace(this.BASE_PATH, '').split('.')[0];
-            this.navigate(path);
         });
     }
 

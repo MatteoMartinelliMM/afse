@@ -1,7 +1,7 @@
 import TradesController from "../controller/tradesController.js";
 import navInstance from "../utils/navigator.js";
 import Masonry from 'masonry-layout/masonry';
-import {attachListners} from "@/js/navbar";
+import {setNavbarItemActive} from "@/js/components/navbar";
 
 
 class TradesView {
@@ -10,8 +10,7 @@ class TradesView {
     }
 
     render() {
-        console.log('render trades!')
-        attachListners()
+        setNavbarItemActive('marketplace')
         this.tradesControler.getTrades().then(data => {
             document.getElementById('othersOffer').classList.toggle('d-none', false)
             document.getElementById('yourOffer').classList.toggle('d-none', false)
@@ -39,13 +38,12 @@ class TradesView {
 
                 document.getElementById(`action${offer._id}`).addEventListener('click', () => {
                     this.tradesControler.onActionButtonPressed(offer._id, currentUser).then(data => {
-                        if(currentUser){
+                        if (currentUser) {
                             this.createOfferGrid(data, 'userOfferContainer', true)
                             return;
                         }
                         this.createOfferGrid(data.othersOffers, 'othersOfferContainer')
                     }).catch(e => console.log(e))
-                    console.log('click bottone')
                 })
             });
             new Masonry(container, {
@@ -56,7 +54,7 @@ class TradesView {
             return
         }
         document.getElementById('loaderContainer').classList.toggle('d-none', true)
-        if(currentUser){
+        if (currentUser) {
             container.innerHTML = `<h2 class="text-center">YOU HAVE NOT CREATED ANY TRADE OFFERS</h2>`
             const h3 = document.createElement('h3');
             h3.className = 'text-center'

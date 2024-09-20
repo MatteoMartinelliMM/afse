@@ -4,7 +4,7 @@ function formatString(template, values) {
 
 function onErrorResponse(e, res) {
     console.log(e)
-    res.status(500).json({message: "Cannot perform request"})
+    res.status(500).json({message: "Internal server error"})
 }
 
 String.prototype.capitalize = function () {

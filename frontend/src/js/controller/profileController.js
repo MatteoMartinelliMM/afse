@@ -7,7 +7,7 @@ class ProfileController {
 
     getUserInfo() {
         return new Promise((resolve, reject) => {
-            return new HttpInteractor().getAuthenticated('http://localhost:3000/auth/profile')
+            return new HttpInteractor().getAuthenticated('http://localhost:3000/user/profile')
                 .then(user => {
                     this.user = user
                     resolve(this.user);
@@ -38,7 +38,7 @@ class ProfileController {
 
     onFavouriteHeroPicked(result) {
         return new Promise((resolve, reject) => {
-            new HttpInteractor().putAuthenticated('http://localhost:3000/auth/changeFavouriteHero', {
+            new HttpInteractor().putAuthenticated('http://localhost:3000/user/changeFavouriteHero', {
                 body: JSON.stringify({id: result.id}), headers: {"Content-Type": "application/json"}
             }).then(_ => {
                 this.user.favouriteHero.favouriteHeroImage = `${result.thumbnail.path}.${result.thumbnail.extension}`
@@ -56,6 +56,7 @@ class ProfileController {
         return new Promise((resolve, reject) => {
             new HttpInteractor().postAuthenticated('http://localhost:3000/auth/logout')
                 .then(data => {
+                    sessionStorage.setItem('isAuthenticated', 'false')
                     resolve(data)
                 })
                 .catch(e => {

@@ -4,8 +4,6 @@ class ViewProvider {
     }
 
     getView(path) {
-        console.log('ci siamo: ', path)
-        console.log('chiamo: ', `@/js/view${path}.js`)
         return new Promise((resolve, reject) => {
             import(/* webpackChunkName: "view-[request]" */`@/js/view${path}.js`)
                 .then((module) => {

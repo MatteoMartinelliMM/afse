@@ -19,25 +19,19 @@ async function packCollection() {
 async function checkFigurineOnServerStart() {
     const fCollection = await figurineCollection()
     const getFigurineAmount =
-        fCollection.find().toArray().then(allFigurine => ({
-            status: 'fulfilled',
-            value: allFigurine.length
-        })).catch(error => ({status: 'error', reason: error}))
+        fCollection.find().toArray()
 
-    const getCharacterAmount = marvelService.getCharactersAmount().then(data => ({
-        status: 'fulfilled',
-        value: data
-    })).catch((e) => ({status: 'error', reason: e}))
+    const getCharacterAmount = marvelService.getCharactersAmount()
 
     const results = await Promise.allSettled([getFigurineAmount, getCharacterAmount])
     const dbRes = results[0]
     const apiRes = results[1]
 
     if (dbRes.status === 'fulfilled' && apiRes.status === 'fulfilled') {
-        console.log('dbRes value: ', dbRes.value.value)
-        console.log('apiRes value: ', apiRes.value.value)
-        const dbFigurineAmount = dbRes.value.value;
-        const apiFigurineAmount = apiRes.value.value;
+        console.log('dbRes value: ', dbRes.value)
+        console.log('apiRes value: ', apiRes.value)
+        const dbFigurineAmount = dbRes.value;
+        const apiFigurineAmount = apiRes.value;
         if (dbFigurineAmount !== apiFigurineAmount) {
             const limit = 100;
             const totalRequests = Math.ceil(apiFigurineAmount / limit)
@@ -220,6 +214,10 @@ async function getUserLastPackOpened(userId) {
     return await (await packCollection()).find({userId: userId}).sort({date: -1}).limit(10).toArray()
 }
 
+async function getAllFigurines() {
+    return await (await figurineCollection()).find({}, {projection: {figurineId: 1, _id: 0}}).toArray()
+}
+
 
 module.exports = {
     insertUserFigurine: insertUserFigurine,
@@ -231,4 +229,5 @@ module.exports = {
     getUserFigurinePaginated: getUserFigurinePaginated,
     getUserLastPackOpened: getUserLastPackOpened,
     pickRandomFigurines: pickRandomFigurines,
+    getAllFigurines: getAllFigurines,
 }

@@ -53,7 +53,7 @@ class TradeOfferController {
         const tradeOfferModel = this.tradeOfferModel
         tradeOfferModel.recieveCards = tradeOfferModel.recieveCards.map(c => c.id)
         return new Promise((resolve, reject) => {
-            new HttpInteractor().putAuthenticated(`http://localhost:3000/marketplace/createOffer`, {
+            new HttpInteractor().postAuthenticated(`http://localhost:3000/marketplace/createOffer`, {
                 headers: {
                     'Content-Type': 'application/json' 
                 },

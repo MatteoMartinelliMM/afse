@@ -99,6 +99,8 @@ class HeroView {
                     data.creators.items.forEach(c => {
                         creatorsList.innerHTML += `<li class="list-group-item">${c.role.toUpperCase()}: ${c.name}</li>`;
                     })
+                }).catch(e => {
+                    console.log(e)
                 })
             })
         })

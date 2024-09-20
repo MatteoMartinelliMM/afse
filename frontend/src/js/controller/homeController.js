@@ -8,7 +8,7 @@ class HomeController {
 
     getUserInfo() {
         return new Promise((resolve, reject) => {
-            new HttpInteractor().getAuthenticated('http://localhost:3000/home/user')
+            new HttpInteractor().getAuthenticated('http://localhost:3000/user/info')
                 .then(user => {
                     this.user = user
                     resolve(this.user)
@@ -51,16 +51,12 @@ class HomeController {
     }
 
     onCollectionNextPagePressed() {
-        console.log('before onCollectionNextPagePressed(): ' , this.currentCollectionPage)
         this.currentCollectionPage + 1 <= this.totalPageCollection ? ++this.currentCollectionPage : this.currentCollectionPage = 1
-        console.log('after onCollectionNextPagePressed(): ' , this.currentCollectionPage)
         return this.collectionPageDownloaded.findIndex(page => page === this.currentCollectionPage) === -1
     }
 
     onCollectionPreviousPagePressed() {
-        console.log('before onCollectionPreviousPagePressed(): ' , this.currentCollectionPage)
         this.currentCollectionPage - 1 !== 0 ? --this.currentCollectionPage : this.currentCollectionPage = this.totalPageCollection
-        console.log('after onCollectionPreviousPagePressed(): ' , this.currentCollectionPage)
         return this.collectionPageDownloaded.findIndex(page => page === this.currentCollectionPage) === -1
     }
 

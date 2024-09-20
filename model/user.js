@@ -5,7 +5,6 @@ class User {
         this.username = username;
         this.email = email;
         this.pwd = pwd;
-        this.isHero = isHero || true;
         this.favouriteHero = favouriteHero;
         this.profilePicture = profilePicture;
         this.coinAmount = 0;
