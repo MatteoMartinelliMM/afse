@@ -1,4 +1,4 @@
-# Marvel Sticker Collection Project
+# Marvel Card Collection Project
 
 ## Overview
 
@@ -12,7 +12,7 @@ This project is a web application developed for a university exam. It focuses on
 ## Features
 
 - **User Authentication**: Secure login and registration system using JWT.
-- **Sticker Management**: Users can add, edit, and delete stickers from their collection.
+- **Card Management**: Users can buy, trade, and discards cards from their collection.
 - **Single Page Application**: Smooth navigation and dynamic content loading without full page reloads.
 
 ## Getting Started
